@@ -16,6 +16,11 @@ export default new Router({
             component: require('@/components/Ciphers/Clasics/CesarCipher').default
         },
         {
+            path: '/appendix',
+            name: 'AppendixCipher',
+            component: require('@/components/Ciphers/Appendix/AppendixCipher').default
+        },
+        {
             path: '*',
             redirect: '/'
         }

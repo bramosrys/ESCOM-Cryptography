@@ -59,7 +59,8 @@
             fixed: false,
             items: [
                 {icon: 'apps', title: 'Home Page', to: '/'},
-                {icon: 'bubble_chart', title: "Cesar's cipher", to: '/cesars'}
+                {icon: 'file_copy', title: 'Appendix', to: 'appendix'},
+                {icon: 'bubble_chart', title: "Cesar's cipher", to: '/cesars'},
             ],
             miniVariant: false,
             right: true,

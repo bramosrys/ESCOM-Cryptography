@@ -49,6 +49,71 @@ app.on('activate', () => {
         createWindow()
     }
 })
+/************* PRACTICE ZERO ***************/
+ipcMain.on('p0:fileSelector:requestedPlainText', (event, configurations) => {
+    console.log('Event received to open a plain file selector and emmit the path')
+    dialog.showOpenDialog(mainWindow, {
+        title: "Select the plain text file",
+        filters: [{name: 'Text files', extensions: ['txt']}],
+        properties: ['openFile']
+    }, (fileNames) => {
+        if (fileNames === undefined) {
+            console.log("No file selected")
+            return
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', (err) => {
+                    if (err) {
+                        throw  err;
+                    }
+                    event.sender.send('p0:fileSelector:plainTextSelected', {
+                        fileName: fileNames[0],
+                        contents: data.toString('utf8'),
+                        cipheredFileName: cipheredFileName,
+                        cipheredContents: shiftedText.join('').toString('utf8')
+                    })
+                })
+            })
+        }
+    })
+})
+ipcMain.on('p0:fileSelector:requestedEncryptedText', (event, configurations) => {
+    console.log('Event received to open a file selector and emmit the decrypted path')
+    dialog.showOpenDialog(mainWindow, {
+        title: "Select the encrypted text file",
+        filters: [{name: 'Text files', extensions: ['txt']}],
+        properties: ['openFile']
+    }, (fileNames) => {
+        if (fileNames === undefined) {
+            console.log("No file selected")
+            return
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', (err) => {
+                    if (err) {
+                        throw err
+                    }
+                    event.sender.send('p0:fileSelector:cipheredTextSelected', {
+                        fileName: fileNames[0],
+                        contents: data.toString('utf8'),
+                        decryptedFileName: decryptedFileName,
+                        decryptedContents: shiftedText.join('').toString('utf8')
+                    })
+                })
+            })
+        }
+    })
+})
+
+/****** PRACTICE ONE ************/
 ipcMain.on('fileSelector:requestedPlainText', (event, configurations) => {
     console.log('Event received to open a plain file selector and emmit the path')
     dialog.showOpenDialog(mainWindow, {
@@ -112,8 +177,9 @@ ipcMain.on('fileSelector:requestedEncryptedText', (event, configurations) => {
                     alphabet.push(String.fromCharCode(i))
                 }
                 var shiftedText = [];
+                var keyToDecrypt = configurations.alphabetLength - configurations.shiftNumber;
                 for (var i = 0; i < removedAccents.length; i++) {
-                    shiftedText.push(String.fromCharCode(alphabet[(_.indexOf(alphabet, removedAccents.charAt(i)) + (configurations.alphabetLength - configurations.shiftNumber)) % (configurations.alphabetLength)].charCodeAt(0)+32))
+                    shiftedText.push(String.fromCharCode(alphabet[(_.indexOf(alphabet, removedAccents.charAt(i)) + keyToDecrypt) % (configurations.alphabetLength)].charCodeAt(0)+32))
                 }
                 var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt'
                 fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', (err) => {
