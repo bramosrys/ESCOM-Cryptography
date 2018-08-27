@@ -32,9 +32,6 @@
                 <v-spacer></v-spacer>
                 <div class="practice-name">Brayan Ramos R.</div>
                 <v-spacer></v-spacer>
-                <v-toolbar-items class="hidden-sm-and-down">
-                    <v-btn flat>Home</v-btn>
-                </v-toolbar-items>
             </v-toolbar>
             <v-content>
                 <v-container fluid>
@@ -51,7 +48,7 @@
     import WelcomeView from "./components/WelcomeView";
 
     export default {
-        name: 'p1cesar',
+        name: 'CryptoCOM',
         components: {WelcomeView},
         data: () => ({
             clipped: false,
@@ -59,7 +56,9 @@
             fixed: false,
             items: [
                 {icon: 'apps', title: 'Home Page', to: '/'},
-                {icon: 'bubble_chart', title: "Cesar's cipher", to: '/cesars'}
+                {icon: 'file_copy', title: 'Appendix', to: 'appendix'},
+                {icon: 'bubble_chart', title: "Cesar's cipher", to: 'cesars'},
+                {icon: 'mdi-alpha', title:"Affine's cipher", to: 'affine' }
             ],
             miniVariant: false,
             right: true,
@@ -79,6 +78,7 @@
         font-weight: 900;
         font-size: 20px;
         letter-spacing: 0px;
+        overflow: hidden;
     }
     .practice-description
     {
@@ -88,6 +88,7 @@
         font-weight: 400;
         font-size: 18px;
         letter-spacing: 1px;
+        overflow: hidden;
     }
 
     .practice-configuration
@@ -98,6 +99,7 @@
         font-weight: 900;
         font-size: 20px;
         letter-spacing: 1px;
+        overflow: hidden;
     }
     .practice-configuration-item
     {
@@ -107,6 +109,7 @@
         font-weight: 300;
         font-size: 16px;
         letter-spacing: 0px;
+        overflow: hidden;
     }
     .practice-label
     {
@@ -116,5 +119,6 @@
         font-weight: 300;
         font-size: 14px;
         letter-spacing: 0px;
+        overflow: hidden;
     }
 </style>

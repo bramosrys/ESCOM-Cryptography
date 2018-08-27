@@ -3,6 +3,7 @@ import axios from 'axios'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.css'
 import Vuelidate from 'vuelidate'
+import '@mdi/font/css/materialdesignicons.css'
 
 import App from './App'
 import router from './router'
