@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f38bf1d8-0084-45e8-956b-1fcd0e979ddb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/bramosrys.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineCipher.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CryptoCOM/dist/electron/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/dist/electron/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CryptoCOM/himno_encrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/himno_encrypted.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CryptoCOM/himno_encrypted_decrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/himno_encrypted_decrypted.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CryptoCOM/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CryptoCOM/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CryptoCOM/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/src/renderer/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/src/renderer/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/src/renderer/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/src/renderer/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CryptoCOM/test_encrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/test_encrypted.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CryptoCOM/test_encrypted_decrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/test_encrypted_decrypted.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,59 +26,59 @@
     <session id="1662049936">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.0" value="2" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gitignore" value="1" />
-          <entry key="js" value="5" />
-          <entry key="vue" value="7" />
+          <entry key="js" value="6" />
+          <entry key="vue" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JavaScript" value="5" />
+          <entry key="JavaScript" value="6" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Vue.js" value="7" />
+          <entry key="Vue.js" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="3059" />
-          <entry key="vue" value="3028" />
+          <entry key="js" value="3820" />
+          <entry key="vue" value="3129" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="3059" />
-          <entry key="Vue.js" value="3028" />
+          <entry key="JavaScript" value="3820" />
+          <entry key="Vue.js" value="3129" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            <state relative-caret-position="356">
+              <caret line="114" column="46" lean-forward="true" selection-start-line="114" selection-start-column="46" selection-end-line="114" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
+        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="47" column="26" lean-forward="true" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
+            <state relative-caret-position="425">
+              <caret line="97" column="45" lean-forward="true" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -87,29 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineCipher.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="78" column="45" lean-forward="true" selection-start-line="78" selection-start-column="45" selection-end-line="78" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/App.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="50" column="20" lean-forward="true" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-152">
-              <caret line="9" column="30" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="369">
+              <caret line="25" column="37" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="25" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -150,12 +128,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Apendix/ApendixCipher.vue" />
-        <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue" />
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/main.js" />
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js" />
-        <option value="$PROJECT_DIR$/CryptoCOM/src/main/index.js" />
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineCipher.vue" />
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/App.vue" />
+        <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue" />
+        <option value="$PROJECT_DIR$/CryptoCOM/src/main/index.js" />
       </list>
     </option>
   </component>
@@ -174,9 +152,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1729" />
-    <option name="width" value="1717" />
-    <option name="height" value="943" />
+    <option name="width" value="960" />
+    <option name="height" value="1052" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -300,18 +277,18 @@
       <workItem from="1534772545670" duration="1147000" />
       <workItem from="1534775249611" duration="1669000" />
       <workItem from="1535261847530" duration="15988000" />
-      <workItem from="1535279120903" duration="1655000" />
+      <workItem from="1535279120903" duration="1964000" />
+      <workItem from="1535378211020" duration="3178000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21149000" />
+    <option name="totallyTimeSpent" value="24636000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="28" width="1600" height="872" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1920" height="1052" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24984147" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15867159" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -323,12 +300,31 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.33827493" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.36550975" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24984147" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.33827493" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -337,24 +333,17 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/CesarCipher.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="28" lean-forward="true" selection-end-line="153" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
           <caret line="13" column="57" lean-forward="true" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="57" column="24" selection-start-line="57" selection-start-column="24" selection-end-line="57" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -365,23 +354,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="47" column="26" lean-forward="true" selection-start-line="47" selection-start-column="26" selection-end-line="47" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineCipher.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="78" column="45" lean-forward="true" selection-start-line="78" selection-start-column="45" selection-end-line="78" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-152">
+        <state relative-caret-position="23">
           <caret line="9" column="30" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -389,10 +364,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/App.vue">
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/CesarCipher.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="50" column="20" lean-forward="true" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+        <state relative-caret-position="-1219">
+          <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineCipher.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="25" column="37" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="25" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="97" column="45" lean-forward="true" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="114" column="46" lean-forward="true" selection-start-line="114" selection-start-column="46" selection-end-line="114" selection-end-column="46" />
         </state>
       </provider>
     </entry>

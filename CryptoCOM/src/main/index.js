@@ -4,6 +4,7 @@ const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const math = require('mathjs')
+const cryptojs = require('crypto-js')
 
 
 /**
@@ -50,14 +51,9 @@ app.on('activate', () => {
         createWindow()
     }
 })
-
-process.on('exit', function() {
-    self.proc.disconnect();
-    self.proc.kill();
-});
 /************* PRACTICE ZERO ***************/
 ipcMain.on('p0:fileSelector:requestedPlainText', (event, configurations) => {
-    console.log('Event received to open a plain file selector and emmit the path')
+    console.log('Event received to open a plain file selector and emmit the path', configurations)
     dialog.showOpenDialog(mainWindow, {
         title: "Select the plain text file",
         filters: [{name: 'Text files', extensions: ['txt']}],
@@ -72,7 +68,13 @@ ipcMain.on('p0:fileSelector:requestedPlainText', (event, configurations) => {
                 if (err) {
                     throw err;
                 }
-                fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', (err) => {
+                console.log('data.toString(): ', data.toString('utf8'))
+                var encryptedData = cryptojs.AES.encrypt(data.toString('utf8'), configurations.password)
+                var encryptedDatabase64 = Buffer.from(encryptedData.toString()).toString('base64')
+                //var decryptedBytes = cryptojs.AES.decrypt(encryptedData.toString(),'holamundo')
+                //var plainText = decryptedBytes.toString(cryptojs.enc.Utf8)
+                var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt'
+                fs.writeFile(cipheredFileName, encryptedDatabase64, 'utf8', (err) => {
                     if (err) {
                         throw  err;
                     }
@@ -80,7 +82,7 @@ ipcMain.on('p0:fileSelector:requestedPlainText', (event, configurations) => {
                         fileName: fileNames[0],
                         contents: data.toString('utf8'),
                         cipheredFileName: cipheredFileName,
-                        cipheredContents: shiftedText.join('').toString('utf8')
+                        cipheredContents: encryptedDatabase64
                     })
                 })
             })
@@ -103,17 +105,30 @@ ipcMain.on('p0:fileSelector:requestedEncryptedText', (event, configurations) => 
                 if (err) {
                     throw err;
                 }
-                fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', (err) => {
-                    if (err) {
-                        throw err
-                    }
+                var decryptedBytes = cryptojs.AES.decrypt(Buffer.from(data.toString(), 'base64').toString('utf8'), configurations.password)
+                console.log('decryptedBytes: ', decryptedBytes)
+                var plainText = decryptedBytes.toString(cryptojs.enc.Utf8)
+                if (plainText === "") {
                     event.sender.send('p0:fileSelector:cipheredTextSelected', {
                         fileName: fileNames[0],
                         contents: data.toString('utf8'),
-                        decryptedFileName: decryptedFileName,
-                        decryptedContents: shiftedText.join('').toString('utf8')
+                        decryptedFileName: NA,
+                        decryptedContents: "Error al leer el archivo"
                     })
-                })
+                } else {
+                    var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt'
+                    fs.writeFile(decryptedFileName, plainText, 'utf8', (err) => {
+                        if (err) {
+                            throw err
+                        }
+                        event.sender.send('p0:fileSelector:cipheredTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            decryptedFileName: decryptedFileName,
+                            decryptedContents: plainText
+                        })
+                    })
+                }
             })
         }
     })

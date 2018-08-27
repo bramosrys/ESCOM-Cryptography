@@ -2553,6 +2553,7 @@ var fs = __webpack_require__(1);
 var path = __webpack_require__(0);
 var _ = __webpack_require__(48);
 var math = __webpack_require__(49);
+var cryptojs = __webpack_require__(50);
 
 if (process.env.NODE_ENV !== 'development') {
     global.__static = __webpack_require__(0).join(__dirname, '/static').replace(/\\/g, '\\\\');
@@ -2590,13 +2591,8 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('activate', function () {
     }
 });
 
-process.on('exit', function () {
-    self.proc.disconnect();
-    self.proc.kill();
-});
-
 __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedPlainText', function (event, configurations) {
-    console.log('Event received to open a plain file selector and emmit the path');
+    console.log('Event received to open a plain file selector and emmit the path', configurations);
     __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
         title: "Select the plain text file",
         filters: [{ name: 'Text files', extensions: ['txt'] }],
@@ -2611,7 +2607,12 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedP
                 if (err) {
                     throw err;
                 }
-                fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
+                console.log('data.toString(): ', data.toString('utf8'));
+                var encryptedData = cryptojs.AES.encrypt(data.toString('utf8'), configurations.password);
+                var encryptedDatabase64 = Buffer.from(encryptedData.toString()).toString('base64');
+
+                var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
+                fs.writeFile(cipheredFileName, encryptedDatabase64, 'utf8', function (err) {
                     if (err) {
                         throw err;
                     }
@@ -2619,7 +2620,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedP
                         fileName: fileNames[0],
                         contents: data.toString('utf8'),
                         cipheredFileName: cipheredFileName,
-                        cipheredContents: shiftedText.join('').toString('utf8')
+                        cipheredContents: encryptedDatabase64
                     });
                 });
             });
@@ -2642,17 +2643,30 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedE
                 if (err) {
                     throw err;
                 }
-                fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
-                    if (err) {
-                        throw err;
-                    }
+                var decryptedBytes = cryptojs.AES.decrypt(Buffer.from(data.toString(), 'base64').toString('utf8'), configurations.password);
+                console.log('decryptedBytes: ', decryptedBytes);
+                var plainText = decryptedBytes.toString(cryptojs.enc.Utf8);
+                if (plainText === "") {
                     event.sender.send('p0:fileSelector:cipheredTextSelected', {
                         fileName: fileNames[0],
                         contents: data.toString('utf8'),
-                        decryptedFileName: decryptedFileName,
-                        decryptedContents: shiftedText.join('').toString('utf8')
+                        decryptedFileName: NA,
+                        decryptedContents: "Error al leer el archivo"
                     });
-                });
+                } else {
+                    var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
+                    fs.writeFile(decryptedFileName, plainText, 'utf8', function (err) {
+                        if (err) {
+                            throw err;
+                        }
+                        event.sender.send('p0:fileSelector:cipheredTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            decryptedFileName: decryptedFileName,
+                            decryptedContents: plainText
+                        });
+                    });
+                }
             });
         }
     });
@@ -7543,6 +7557,12 @@ module.exports = require("lodash");
 /***/ (function(module, exports) {
 
 module.exports = require("mathjs");
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+module.exports = require("crypto-js");
 
 /***/ })
 /******/ ]);
