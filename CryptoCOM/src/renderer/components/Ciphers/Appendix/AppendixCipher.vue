@@ -8,10 +8,20 @@
                 </v-card-text>
             </v-card>
         </v-flex>
-        <v-flex  xs12 md12 class="mt-3">
+        <v-flex xs12 md12 class="mt-3">
             <v-card>
                 <v-card-text>
-                    <p class="practice-configuration">This cipher has no configuration available</p>
+                    <p class="practice-configuration">Available configuration for the cipher:</p>
+                    <v-form ref="settingsForm" v-model="valid">
+                        <v-text-field
+                                v-model="configurations.password"
+                                hint="The password to encrypt the file"
+                                ref="passwordTextField"
+                                label="Password"
+                                required
+                                type="string"
+                        ></v-text-field>
+                    </v-form>
                 </v-card-text>
             </v-card>
         </v-flex>
@@ -77,18 +87,8 @@
                 oppositeProgramAction: null,
                 valid: false,
                 configurations: {
-                    shiftNumber: 3,
-                    fakeShiftNumber: 3,
-                    removeSpaces: true,
-                    stripAccents: true,
-                    alphabetLength: 26
-                },
-                shiftRules: [
-                    v => !!v || 'The shit count is required',
-                    (v) => v <= 25 || 'Shift count must be between 1 and (alphabet length - 1) which is ' + (this.configurations.alphabetLength-1),
-                    (v) => v >= 1 || 'Shift count must be between 1 and (alphabet length - 1) which is ' + (this.configurations.alphabetLength-1),
-                    (v) => /^(\d*)?\d+$/.test(v) || 'Decimal values are not allowed',
-                ],
+                    password: null,
+                }
             }
         },
         methods: {
