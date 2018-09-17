@@ -5,6 +5,8 @@ const path = require('path')
 const _ = require('lodash')
 const math = require('mathjs')
 const cryptojs = require('crypto-js')
+const crypto = require('crypto')
+const bmp = require('bmp-js')
 
 
 /**
@@ -376,6 +378,42 @@ ipcMain.on('p2:fileSelector:requestedEncryptedText', (event, configurations) => 
         }
     })
 })
+
+ipcMain.on('p4:fileSelector:requestedPlainImage', (event, configurations) => {
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations)
+    dialog.showOpenDialog(mainWindow, {
+        title: "Select the plain image",
+        filters: [{name: 'Bitmap files', extensions: ['bmp']}],
+        properties: ['openFile']
+    }, (fileNames) => {
+        if (fileNames === undefined) {
+            console.log("No file selected")
+            return
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                var bmpData = bmp.decode(data)
+                console.log('index - bmoData decoded - 399 - : ',bmpData)
+                var bmpHeader = bmpData.buffer.toString('hex',0,bmpData.headerSize)
+                var bmpImageData = bmpData.data
+
+                console.log('index -  - 401 - bmpHeader: ',bmpHeader)
+
+
+                /*event.sender.send('p2:fileSelector:cipheredTextSelected', {
+                    fileName: fileNames[0],
+                    contents: data.toString('utf8'),
+                    decryptedFileName: decryptedFileName,
+                    decryptedContents: shiftedText.join('').toString('utf8')
+                })*/
+            })
+        }
+    })
+})
+
 /**
  * Auto Updater
  *

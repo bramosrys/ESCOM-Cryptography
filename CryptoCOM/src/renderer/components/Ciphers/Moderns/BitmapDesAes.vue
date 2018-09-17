@@ -110,7 +110,7 @@
         methods: {
             selectPlainTextFile() {
                 console.log('sending event to ipcRenderer (fileRequest)')
-                ipcRenderer.send('p4:fileSelector:requestedPlainText', this.configurations)
+                ipcRenderer.send('p4:fileSelector:requestedPlainImage', this.configurations)
                 this.programAction = 'encrypt'
                 this.oppositeProgramAction = 'encrypted'
             },

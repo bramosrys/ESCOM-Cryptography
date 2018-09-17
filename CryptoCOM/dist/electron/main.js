@@ -2554,6 +2554,8 @@ var path = __webpack_require__(0);
 var _ = __webpack_require__(48);
 var math = __webpack_require__(49);
 var cryptojs = __webpack_require__(50);
+var crypto = __webpack_require__(51);
+var bmp = __webpack_require__(52);
 
 if (process.env.NODE_ENV !== 'development') {
     global.__static = __webpack_require__(0).join(__dirname, '/static').replace(/\\/g, '\\\\');
@@ -2908,6 +2910,33 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedE
                         });
                     });
                 }
+            });
+        }
+    });
+});
+
+__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedPlainImage', function (event, configurations) {
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain image",
+        filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var bmpData = bmp.decode(data);
+                console.log('index - bmoData decoded - 399 - : ', bmpData);
+                var bmpHeader = bmpData.buffer.toString('hex', 0, bmpData.headerSize);
+                var bmpImageData = bmpData.data;
+
+                console.log('index -  - 401 - bmpHeader: ', bmpHeader);
             });
         }
     });
@@ -7563,6 +7592,18 @@ module.exports = require("mathjs");
 /***/ (function(module, exports) {
 
 module.exports = require("crypto-js");
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+module.exports = require("crypto");
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = require("bmp-js");
 
 /***/ })
 /******/ ]);
