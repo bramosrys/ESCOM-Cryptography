@@ -2568,9 +2568,9 @@ function createWindow() {
     mainWindow = new __WEBPACK_IMPORTED_MODULE_0_electron__["BrowserWindow"]({
         height: 900,
         useContentSize: true,
-        width: 800
+        width: 800,
+        icon: path.join(__dirname, '/../renderer/assets/icons/icon.ico')
     });
-
     mainWindow.loadURL(winURL);
     mainWindow.maximize();
 
@@ -2578,7 +2578,6 @@ function createWindow() {
         mainWindow = null;
     });
 }
-
 __WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('ready', createWindow);
 
 __WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('window-all-closed', function () {

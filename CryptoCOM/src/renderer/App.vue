@@ -59,7 +59,7 @@
                 {icon: 'file_copy', title: 'Appendix', to: 'appendix'},
                 {icon: 'bubble_chart', title: "Cesar's cipher", to: 'caesars'},
                 {icon: 'mdi-alpha', title:"Affine's cipher", to: 'affine' },
-                {icon: 'mdi-alpha', title:"Euclidean algorithm - Affine", to: 'euclideanAffine' },
+                {icon: 'mdi-counter', title:"Euclidean algorithm - Affine", to: 'euclideanAffine' },
                 {icon: 'mdi-blur-off', title:"Bitmap Cipher", to: 'bmpCipher' }
             ],
             miniVariant: false,

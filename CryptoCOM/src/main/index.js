@@ -29,9 +29,9 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         height: 900,
         useContentSize: true,
-        width: 800
+        width: 800,
+        icon:  path.join(__dirname, '/../renderer/assets/icons/icon.ico')
     })
-
     mainWindow.loadURL(winURL)
     mainWindow.maximize()
 
@@ -39,7 +39,6 @@ function createWindow() {
         mainWindow = null
     })
 }
-
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
