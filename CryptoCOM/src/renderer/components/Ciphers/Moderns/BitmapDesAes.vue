@@ -48,23 +48,22 @@
                 grid-list-md
         >
             <v-layout row wrap>
-                <v-flex xs12 md6 class="mt-3">
+                <!--<v-flex xs12 md6 class="mt-3">
                     <v-card>
                         <v-card-text>
                             <p class="practice-label">Contents of the file to {{programAction}}: </p>
                             <p class="practice-label p-file">{{fileToCrypto}}</p>
                             <v-divider></v-divider>
-
+                            <img id="plain" class="logo" :src="fileToCrypto" alt="encryptedImage">
                         </v-card-text>
                     </v-card>
-                </v-flex>
-                <v-flex xs12 md6 class="mt-3">
+                </v-flex>-->
+                <v-flex xs12 md12 class="mt-3">
                     <v-card>
                         <v-card-text>
-                            <p class="practice-label">Contents of the file {{oppositeProgramAction}}: </p>
+                            <p class="practice-label">Results available at: </p>
                             <p class="practice-label p-file">{{fileFromCrypto}}</p>
                             <v-divider></v-divider>
-
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -75,6 +74,7 @@
 
 <script>
     import electron from 'electron'
+
     const {ipcRenderer} = electron
     export default {
         name: "BitmapDesAes",
@@ -99,8 +99,8 @@
                     {text: 'des-ecb'}
                 ],
                 configurations: {
-                    algorithm: 'aes-128-cbc',
-                    password: 'holabeibi'
+                    algorithm: null,
+                    password: null
                 },
                 passwordRules: [
                     v => !!v || 'Password is required'
@@ -109,52 +109,35 @@
         },
         methods: {
             selectPlainTextFile() {
-                console.log('sending event to ipcRenderer (fileRequest)')
-                ipcRenderer.send('p4:fileSelector:requestedPlainImage', this.configurations)
-                this.programAction = 'encrypt'
-                this.oppositeProgramAction = 'encrypted'
+                console.log('BitmapDesAes - selectPlainTextFile - 112 - this.configurations.algorithm: ', this.configurations.algorithm)
+                if (this.configurations.algorithm) {
+                    console.log('sending event to ipcRenderer (fileRequest)')
+                    ipcRenderer.send('p4:fileSelector:requestedPlainImage', this.configurations)
+                    this.programAction = 'encrypt'
+                    this.oppositeProgramAction = 'encrypted'
+                } else {
+                    alert("Select an algorithm")
+                }
             },
             selectCipheredTextFile() {
-                console.log('sending event to ipcRenderer (fileRequest)')
-                ipcRenderer.send('p2:fileSelector:requestedEncryptedText', this.configurations)
-                this.programAction = 'decrypt'
-                this.oppositeProgramAction = 'decrypted'
+                if (this.configurations.algorithm) {
+                    console.log('sending event to ipcRenderer (fileRequest)')
+                    ipcRenderer.send('p4:fileSelector:requestedEncryptedImage', this.configurations)
+                    this.programAction = 'decrypt'
+                    this.oppositeProgramAction = 'decrypted'
+                } else {
+                    alert("Select an algorithm")
+                }
             }
         },
-/*        computed: {
-            algorithm() {
-                return this.configurations.algorithm
-            },
-        },*/
         mounted() {
-            this.$electron.ipcRenderer.on('p2:fileSelector:plainTextSelected', (event, data) => {
-                if (!data.rejected) {
-                    this.fileToCrypto = data.fileName
-                    this.dataToCrypto = data.contents
-                    this.fileFromCrypto = data.cipheredFileName
-                    this.resultOfCrypto = data.cipheredContents
-                } else {
-                    this.fileToCrypto = data.fileName
-                    this.dataToCrypto = data.contents
-                    this.fileFromCrypto = null
-                    this.resultOfCrypto = null
-                    alert(data.cipheredContents)
-                }
+            this.$electron.ipcRenderer.on('p4:fileSelector:plainImageSelected', (event, data) => {
+                this.fileToCrypto = data.fileName
+                this.fileFromCrypto = data.cipheredFileName
             })
-            this.$electron.ipcRenderer.on('p2:fileSelector:cipheredTextSelected', (event, data) => {
-                if (!data.rejected) {
-                    this.fileToCrypto = data.fileName
-                    this.dataToCrypto = data.contents
-                    this.fileFromCrypto = data.decryptedFileName
-                    this.resultOfCrypto = data.decryptedContents
-                } else {
-                    this.fileToCrypto = data.fileName
-                    this.dataToCrypto = data.contents
-                    this.fileFromCrypto = null
-                    this.resultOfCrypto = null
-                    alert(data.decryptedContents)
-                }
-
+            this.$electron.ipcRenderer.on('p4:fileSelector:encryptedImageSelected', (event, data) => {
+                this.fileToCrypto = data.fileName
+                this.fileFromCrypto = data.decryptedFileName
             })
         }
     }
@@ -165,5 +148,9 @@
         width: 100%;
         height: 4em;
         overflow: hidden;
+    }
+
+    .logo {
+        max-width: 70%;
     }
 </style>

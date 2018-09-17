@@ -2916,7 +2916,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedE
 });
 
 __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedPlainImage', function (event, configurations) {
-    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    console.log('Event received to open a file selector and emmit the encrypted path', configurations);
     __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
         title: "Select the plain image",
         filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
@@ -2931,12 +2931,72 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedP
                 if (err) {
                     throw err;
                 }
-                var bmpData = bmp.decode(data);
-                console.log('index - bmoData decoded - 399 - : ', bmpData);
-                var bmpHeader = bmpData.buffer.toString('hex', 0, bmpData.headerSize);
-                var bmpImageData = bmpData.data;
-
-                console.log('index -  - 401 - bmpHeader: ', bmpHeader);
+                var bmpLib = bmp.decode(data);
+                console.log('index - bmpLib - 399 - bmpLib: ', bmpLib);
+                var bmpHeader = data.toString('hex', 0, 54);
+                var bmpImageData = data.toString('hex', 54);
+                var cipher = crypto.createCipher(configurations.algorithm.text, configurations.password);
+                var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
+                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + configurations.algorithm.text + '.bmp';
+                fs.writeFile(encryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, { title: 'Encryption done',
+                        type: 'info',
+                        message: 'The file was encrypted correctly',
+                        buttons: ["Ok,thanks!"] });
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(encryptedFileName);
+                    event.sender.send('p4:fileSelector:plainImageSelected', {
+                        fileName: fileNames[0],
+                        cipheredFileName: encryptedFileName
+                    });
+                });
+            });
+        }
+    });
+});
+__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedEncryptedImage', function (event, configurations) {
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted image",
+        filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var bmpHeader = data.toString('hex', 0, 54);
+                var bmpImageData = data.toString('hex', 54);
+                try {
+                    var cipher = crypto.createDecipher(configurations.algorithm.text, configurations.password);
+                    var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
+                } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Wrong password or algorithm', 'The password its wrong or the algorithm its no the original used at encryption, please retry');
+                    return;
+                }
+                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + configurations.algorithm.text + '.bmp';
+                fs.writeFile(decryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, { title: 'Decryption done',
+                        type: 'info',
+                        message: 'The file was decrypted correctly',
+                        buttons: ["Ok,thanks!"] });
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(decryptedFileName);
+                    event.sender.send('p4:fileSelector:encryptedImageSelected', {
+                        fileName: fileNames[0],
+                        decryptedFileName: decryptedFileName
+                    });
+                });
             });
         }
     });

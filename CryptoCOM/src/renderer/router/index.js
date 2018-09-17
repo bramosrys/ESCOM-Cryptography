@@ -5,11 +5,11 @@ Vue.use(Router)
 
 export default new Router({
     routes: [
-        // {
-        //     path: '/',
-        //     name: 'WelcomeView',
-        //     component: require('@/components/WelcomeView').default
-        // },
+        {
+            path: '/',
+            name: 'WelcomeView',
+            component: require('@/components/WelcomeView').default
+        },
         {
             path: '/appendix',
             name: 'AppendixCipher',
@@ -31,14 +31,14 @@ export default new Router({
             component: require('@/components/Ciphers/Clasics/AffineEuclid').default
         },
         {
-            path: '/',
+            path: '/bmpCipher',
             name: 'BitmapDesAes',
             component: require('@/components/Ciphers/Moderns/BitmapDesAes').default
         },
 
         {
             path: '*',
-            redirect: '/bmpCipher'
+            redirect: '/'
         }
     ]
 })
