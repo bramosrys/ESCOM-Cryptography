@@ -1,10 +1,12 @@
-import {app, BrowserWindow, ipcMain, dialog} from 'electron'
+import {app, BrowserWindow, ipcMain, dialog,shell} from 'electron'
 
 const fs = require('fs')
 const path = require('path')
 const _ = require('lodash')
 const math = require('mathjs')
 const cryptojs = require('crypto-js')
+const crypto = require('crypto')
+const bmp = require('bmp-js')
 
 
 /**
@@ -27,9 +29,9 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         height: 900,
         useContentSize: true,
-        width: 800
+        width: 800,
+        icon:  path.join(__dirname, '/../renderer/assets/icons/icon.ico')
     })
-
     mainWindow.loadURL(winURL)
     mainWindow.maximize()
 
@@ -37,7 +39,6 @@ function createWindow() {
         mainWindow = null
     })
 }
-
 app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
@@ -371,6 +372,97 @@ ipcMain.on('p2:fileSelector:requestedEncryptedText', (event, configurations) => 
                         })
                     })
                 }
+
+            })
+        }
+    })
+})
+/**************************** PRACTICE FOUR *********************************/
+ipcMain.on('p4:fileSelector:requestedPlainImage', (event, configurations) => {
+    console.log('Event received to open a file selector and emmit the encrypted path', configurations)
+    dialog.showOpenDialog(mainWindow, {
+        title: "Select the plain image",
+        filters: [{name: 'Bitmap files', extensions: ['bmp']}],
+        properties: ['openFile']
+    }, (fileNames) => {
+        if (fileNames === undefined) {
+            console.log("No file selected")
+            return
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                var bmpLib = bmp.decode(data)
+                console.log('index - bmpLib - 399 - bmpLib: ',bmpLib)
+                var bmpHeader = data.toString('hex', 0, 54)
+                var bmpImageData = data.toString('hex',54)
+                var cipher = crypto.createCipher(configurations.algorithm.text,configurations.password)
+                var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData,'hex')),cipher.final()]).toString('hex')
+                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + configurations.algorithm.text + '.bmp'
+                fs.writeFile(encryptedFileName,bmpHeader+encrypted , 'hex', (err) => {
+                    if (err) {
+                        throw  err;
+                    }
+                    dialog.showMessageBox(mainWindow,
+                        {   title: 'Encryption done',
+                            type: 'info',
+                            message: 'The file was encrypted correctly',
+                            buttons:["Ok,thanks!"]})
+                    shell.openItem(encryptedFileName)
+                    event.sender.send('p4:fileSelector:plainImageSelected', {
+                        fileName: fileNames[0],
+                        cipheredFileName: encryptedFileName,
+                    })
+                })
+
+            })
+        }
+    })
+})
+ipcMain.on('p4:fileSelector:requestedEncryptedImage', (event, configurations) => {
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations)
+    dialog.showOpenDialog(mainWindow, {
+        title: "Select the encrypted image",
+        filters: [{name: 'Bitmap files', extensions: ['bmp']}],
+        properties: ['openFile']
+    }, (fileNames) => {
+        if (fileNames === undefined) {
+            console.log("No file selected")
+            return
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), (err, data) => {
+                if (err) {
+                    throw err;
+                }
+                var bmpHeader = data.toString('hex', 0, 54)
+                var bmpImageData = data.toString('hex',54)
+                try{
+                    var cipher = crypto.createDecipher(configurations.algorithm.text,configurations.password)
+                    var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData,'hex')),cipher.final()]).toString('hex')
+                }catch (e) {
+                    console.log(e)
+                    dialog.showErrorBox('Wrong password or algorithm','The password its wrong or the algorithm its no the original used at encryption, please retry')
+                    return
+                }
+                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + configurations.algorithm.text + '.bmp'
+                fs.writeFile(decryptedFileName,bmpHeader+encrypted , 'hex', (err) => {
+                    if (err) {
+                        throw  err;
+                    }
+                    dialog.showMessageBox(mainWindow,
+                        {   title: 'Decryption done',
+                            type: 'info',
+                            message: 'The file was decrypted correctly',
+                            buttons:["Ok,thanks!"]})
+                    shell.openItem(decryptedFileName)
+                    event.sender.send('p4:fileSelector:encryptedImageSelected', {
+                        fileName: fileNames[0],
+                        decryptedFileName: decryptedFileName,
+                    })
+                })
 
             })
         }

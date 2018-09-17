@@ -16,14 +16,24 @@ export default new Router({
             component: require('@/components/Ciphers/Appendix/AppendixCipher').default
         },
         {
-            path: '/cesars',
+            path: '/caesars',
             name: 'CesarCipher',
-            component: require('@/components/Ciphers/Clasics/CesarCipher').default
+            component: require('@/components/Ciphers/Clasics/CaesarCipher').default
         },
         {
             path: '/affine',
             name: 'AffineCipher',
             component: require('@/components/Ciphers/Clasics/AffineCipher').default
+        },
+        {
+            path: '/euclideanAffine',
+            name: 'AffineCipher',
+            component: require('@/components/Ciphers/Clasics/AffineEuclid').default
+        },
+        {
+            path: '/bmpCipher',
+            name: 'BitmapDesAes',
+            component: require('@/components/Ciphers/Moderns/BitmapDesAes').default
         },
 
         {

@@ -2554,6 +2554,8 @@ var path = __webpack_require__(0);
 var _ = __webpack_require__(48);
 var math = __webpack_require__(49);
 var cryptojs = __webpack_require__(50);
+var crypto = __webpack_require__(51);
+var bmp = __webpack_require__(52);
 
 if (process.env.NODE_ENV !== 'development') {
     global.__static = __webpack_require__(0).join(__dirname, '/static').replace(/\\/g, '\\\\');
@@ -2566,9 +2568,9 @@ function createWindow() {
     mainWindow = new __WEBPACK_IMPORTED_MODULE_0_electron__["BrowserWindow"]({
         height: 900,
         useContentSize: true,
-        width: 800
+        width: 800,
+        icon: path.join(__dirname, '/../renderer/assets/icons/icon.ico')
     });
-
     mainWindow.loadURL(winURL);
     mainWindow.maximize();
 
@@ -2576,7 +2578,6 @@ function createWindow() {
         mainWindow = null;
     });
 }
-
 __WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('ready', createWindow);
 
 __WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('window-all-closed', function () {
@@ -2908,6 +2909,93 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedE
                         });
                     });
                 }
+            });
+        }
+    });
+});
+
+__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedPlainImage', function (event, configurations) {
+    console.log('Event received to open a file selector and emmit the encrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain image",
+        filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var bmpLib = bmp.decode(data);
+                console.log('index - bmpLib - 399 - bmpLib: ', bmpLib);
+                var bmpHeader = data.toString('hex', 0, 54);
+                var bmpImageData = data.toString('hex', 54);
+                var cipher = crypto.createCipher(configurations.algorithm.text, configurations.password);
+                var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
+                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + configurations.algorithm.text + '.bmp';
+                fs.writeFile(encryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, { title: 'Encryption done',
+                        type: 'info',
+                        message: 'The file was encrypted correctly',
+                        buttons: ["Ok,thanks!"] });
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(encryptedFileName);
+                    event.sender.send('p4:fileSelector:plainImageSelected', {
+                        fileName: fileNames[0],
+                        cipheredFileName: encryptedFileName
+                    });
+                });
+            });
+        }
+    });
+});
+__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedEncryptedImage', function (event, configurations) {
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted image",
+        filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
+        }
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var bmpHeader = data.toString('hex', 0, 54);
+                var bmpImageData = data.toString('hex', 54);
+                try {
+                    var cipher = crypto.createDecipher(configurations.algorithm.text, configurations.password);
+                    var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
+                } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Wrong password or algorithm', 'The password its wrong or the algorithm its no the original used at encryption, please retry');
+                    return;
+                }
+                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + configurations.algorithm.text + '.bmp';
+                fs.writeFile(decryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, { title: 'Decryption done',
+                        type: 'info',
+                        message: 'The file was decrypted correctly',
+                        buttons: ["Ok,thanks!"] });
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(decryptedFileName);
+                    event.sender.send('p4:fileSelector:encryptedImageSelected', {
+                        fileName: fileNames[0],
+                        decryptedFileName: decryptedFileName
+                    });
+                });
             });
         }
     });
@@ -7563,6 +7651,18 @@ module.exports = require("mathjs");
 /***/ (function(module, exports) {
 
 module.exports = require("crypto-js");
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+module.exports = require("crypto");
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = require("bmp-js");
 
 /***/ })
 /******/ ]);

@@ -54,6 +54,7 @@
   "dependencies": {
     "@mdi/font": "^2.6.95",
     "axios": "^0.16.1",
+    "bmp-js": "^0.1.0",
     "crypto-js": "^3.1.9-1",
     "cryptojs": "^2.5.3",
     "lodash": "^4.17.10",
@@ -61,8 +62,8 @@
     "vue": "^2.4.2",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
-    "vuex": "^2.3.1",
-    "vuetify": "1.0.10"
+    "vuetify": "1.0.10",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
