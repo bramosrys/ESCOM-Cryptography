@@ -60,7 +60,8 @@
                 {icon: 'bubble_chart', title: "Cesar's cipher", to: 'caesars'},
                 {icon: 'mdi-alpha', title:"Affine's cipher", to: 'affine' },
                 {icon: 'mdi-counter', title:"Euclidean algorithm - Affine", to: 'euclideanAffine' },
-                {icon: 'mdi-blur-off', title:"Bitmap Cipher", to: 'bmpCipher' }
+                {icon: 'mdi-blur-off', title:"Bitmap Cipher", to: 'bmpCipher' },
+                {icon: 'mdi-blur-off', title:"RSA 2048 Key", to: 'RSAPubPriKey' },
             ],
             miniVariant: false,
             right: true,
