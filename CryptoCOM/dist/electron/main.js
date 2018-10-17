@@ -3012,49 +3012,65 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
   }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
     if (fileNames) {
       fs.readFile(fileNames[0].toString(), function (err, plainTextData) {
         if (err) {
           throw err;
         }
-        try {
-          console.log(plainTextData);
-          var key = configurations.key;
-          if (configurations.keyType === 'Public') {
-            console.log('Cifrando con llave pública - : ');
-            var encrypted = crypto.publicEncrypt(key, plainTextData);
-          } else {
-            console.log('Cifrando con llave privada - : ');
-            var encrypted = crypto.privateEncrypt(key, plainTextData);
+        __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+          title: "Select the key file",
+          filters: [{ name: 'PEM files', extensions: ['pem'] }],
+          properties: ['openFile']
+        }, function (keyFile) {
+          if (keyFile) {
+            try {
+              fs.readFile(keyFile[0].toString(), function (err, keyData) {
+                var key = keyData.toString();
+                var encrypted = null;
+                if (configurations.keyType === 'Public') {
+                  try {
+                    console.log('Cifrando con llave pública - : ');
+                    encrypted = crypto.publicEncrypt(key, plainTextData);
+                  } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
+                    return;
+                  }
+                } else {
+                  try {
+                    console.log('Cifrando con llave privada - : ');
+                    encrypted = crypto.privateEncrypt(key, plainTextData);
+                  } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                    return;
+                  }
+                }
+                console.log('encrypted data: ', encrypted);
+                console.log('encrypted contents - encryptedTextData.toString: ', encrypted.toString());
+                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + '.txt';
+                fs.writeFile(encryptedFileName, encrypted, 'utf8', function (err) {
+                  if (err) {
+                    throw err;
+                  }
+                  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
+                    title: 'Encryption done',
+                    type: 'info',
+                    message: 'The file was encrypted correctly',
+                    buttons: ["Ok,thanks!"]
+                  });
+                  __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(encryptedFileName);
+                  event.sender.send('p5:fileSelector:plainTextSelected', {
+                    fileName: fileNames[0],
+                    encryptedFileName: encryptedFileName
+                  });
+                });
+              });
+            } catch (e) {
+              console.log(e);
+              __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
+            }
           }
-          console.log('encrypted data - encrypted: ', encrypted);
-          console.log('encrypted contents - encrypted.toString: ', encrypted.toString('base64'));
-          console.log('encrypted contents byte lenght - encrypted.byteLength: ', encrypted.byteLength);
-        } catch (e) {
-          console.log(e);
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
-          return;
-        }
-        var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + '.txt';
-        fs.writeFile(encryptedFileName, encrypted, 'utf8', function (err) {
-          if (err) {
-            throw err;
-          }
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
-            title: 'Encryption done',
-            type: 'info',
-            message: 'The file was encrypted correctly',
-            buttons: ["Ok,thanks!"]
-          });
-          __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(encryptedFileName);
-          event.sender.send('p5:fileSelector:plainTextSelected', {
-            fileName: fileNames[0],
-            encryptedFileName: encryptedFileName
-          });
         });
       });
     }
@@ -3068,48 +3084,64 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
   }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
     if (fileNames) {
       fs.readFile(fileNames[0].toString(), function (err, encryptedTextData) {
         if (err) {
           throw err;
         }
-        try {
-          console.log(encryptedTextData);
-          var key = configurations.key;
-          if (configurations.keyType === 'Public') {
-            console.log('Descifrando con llave pública - : ');
-            var decrypted = crypto.publicDecrypt(key, encryptedTextData);
-          } else {
-            console.log('Descifrando con llave privada - : ');
-            var decrypted = crypto.privateDecrypt(key, encryptedTextData);
+        __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+          title: "Select the key file",
+          filters: [{ name: 'PEM files', extensions: ['pem'] }],
+          properties: ['openFile']
+        }, function (keyFile) {
+          if (keyFile) {
+            try {
+              fs.readFile(keyFile[0].toString(), function (err, keyData) {
+                var key = keyData.toString();
+                if (configurations.keyType === 'Public') {
+                  try {
+                    console.log('Descifrando con llave pública - : ');
+                    var decrypted = crypto.publicDecrypt(key, encryptedTextData);
+                  } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                    return;
+                  }
+                } else {
+                  try {
+                    console.log('Descifrando con llave privada - : ');
+                    var decrypted = crypto.privateDecrypt(key, encryptedTextData);
+                  } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                    return;
+                  }
+                }
+                console.log('decrypted data: ', decrypted);
+                console.log('decrypted contents - encryptedTextData.toString: ', decrypted.toString());
+                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + '.txt';
+                fs.writeFile(decryptedFileName, decrypted, 'utf8', function (err) {
+                  if (err) {
+                    throw err;
+                  }
+                  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
+                    title: 'Decryption done',
+                    type: 'info',
+                    message: 'The file was decrypted correctly',
+                    buttons: ["Ok,thanks!"]
+                  });
+                  __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(decryptedFileName);
+                  event.sender.send('p5:fileSelector:encryptedTextSelected', {
+                    fileName: fileNames[0],
+                    decryptedFileName: decryptedFileName
+                  });
+                });
+              });
+            } catch (e) {
+              console.log(e);
+              __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+            }
           }
-          console.log('decrypted data - encryptedTextData: ', encryptedTextData);
-          console.log('decrypted contents - encryptedTextData.toString: ', decrypted.toString('base64'));
-        } catch (e) {
-          console.log(e);
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
-          return;
-        }
-        var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + '.txt';
-        fs.writeFile(decryptedFileName, decrypted.toString('base64'), 'base64', function (err) {
-          if (err) {
-            throw err;
-          }
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
-            title: 'Encryption done',
-            type: 'info',
-            message: 'The file was decrypted correctly',
-            buttons: ["Ok,thanks!"]
-          });
-          __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(decryptedFileName);
-          event.sender.send('p5:fileSelector:encryptedTextSelected', {
-            fileName: fileNames[0],
-            decryptedFileName: decryptedFileName
-          });
         });
       });
     }

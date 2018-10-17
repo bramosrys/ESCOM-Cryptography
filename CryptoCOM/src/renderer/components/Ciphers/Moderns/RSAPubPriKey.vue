@@ -11,46 +11,18 @@
         <v-flex xs12 md12 class="mt-3">
             <v-card>
                 <v-card-text>
-                    <p class="practice-configuration">Available configuration for the cipher:</p>
-                    <v-form ref="settingsForm" v-model="valid">
-                        <v-text-field
-                                v-model="configurations.key"
-                                hint="Enter the key to encrypt decrypt"
-                                :rules="keyRules"
-                                ref="keyForm"
-                                label="RSA 2048 Key"
-                                required
-                                multi-line
-                                type="text"
-                        ></v-text-field>
-                    </v-form>
+                    <p class="practice-label">Encryption</p>
+                    <v-btn @click="selectPlainTextFile('Public')">Using public key</v-btn>
+                    <v-btn @click="selectPlainTextFile('Private')">Using private key</v-btn>
                 </v-card-text>
             </v-card>
         </v-flex>
         <v-flex xs12 md12 class="mt-3">
             <v-card>
                 <v-card-text>
-                    <p class="practice-label">Select the key file</p>
-                    <v-btn @click="selectPlainTextFile('Public')" :disabled="!valid">Select txt to encrypt</v-btn>
-                    <v-btn @click="selectCipheredTextFile('Public')" :disabled="!valid">Select txt to decrypt</v-btn>
-                </v-card-text>
-            </v-card>
-        </v-flex>
-        <v-flex xs12 md12 class="mt-3">
-            <v-card>
-                <v-card-text>
-                    <p class="practice-label">Using Public Key</p>
-                    <v-btn @click="selectPlainTextFile('Public')" :disabled="!valid">Select txt to encrypt</v-btn>
-                    <v-btn @click="selectCipheredTextFile('Public')" :disabled="!valid">Select txt to decrypt</v-btn>
-                </v-card-text>
-            </v-card>
-        </v-flex>
-        <v-flex xs12 md12 class="mt-3">
-            <v-card>
-                <v-card-text>
-                    <p class="practice-label">Using private Key</p>
-                    <v-btn @click="selectPlainTextFile('Private')" :disabled="!valid">Select txt to encrypt</v-btn>
-                    <v-btn @click="selectCipheredTextFile('Private')" :disabled="!valid">Select txt to decrypt</v-btn>
+                    <p class="practice-label">Decryption</p>
+                    <v-btn @click="selectCipheredTextFile('Public')">Using public key</v-btn>
+                    <v-btn @click="selectCipheredTextFile('Private')">Using private key</v-btn>
                 </v-card-text>
             </v-card>
         </v-flex>
@@ -79,7 +51,7 @@
   const {ipcRenderer} = electron
   export default {
     name: "RSAPubPriKey",
-    data() {
+    data () {
       return {
         fileToCrypto: null,
         dataToCrypto: null,
@@ -99,30 +71,22 @@
       }
     },
     methods: {
-      selectPlainTextFile(keyTpe) {
-        if (this.configurations.key) {
-          this.configurations.keyType = keyTpe
-          console.log('sending event to ipcRenderer (fileRequest)')
-          ipcRenderer.send('p5:fileSelector:requestPlainTextFile', this.configurations)
-          this.programAction = 'encrypt'
-          this.oppositeProgramAction = 'encrypted'
-        } else {
-          alert("Enter a key")
-        }
+      selectPlainTextFile (keyTpe) {
+        this.configurations.keyType = keyTpe
+        console.log('sending event to ipcRenderer (fileRequest)')
+        ipcRenderer.send('p5:fileSelector:requestPlainTextFile', this.configurations)
+        this.programAction = 'encrypt'
+        this.oppositeProgramAction = 'encrypted'
       },
-      selectCipheredTextFile(keyType) {
-        if (this.configurations.key) {
-          this.configurations.keyType = keyType
-          console.log('sending event to ipcRenderer (fileRequest)')
-          ipcRenderer.send('p5:fileSelector:requestEncryptedFile', this.configurations)
-          this.programAction = 'decrypt'
-          this.oppositeProgramAction = 'decrypted'
-        } else {
-          alert("Enter a key")
-        }
+      selectCipheredTextFile (keyType) {
+        this.configurations.keyType = keyType
+        console.log('sending event to ipcRenderer (fileRequest)')
+        ipcRenderer.send('p5:fileSelector:requestEncryptedFile', this.configurations)
+        this.programAction = 'decrypt'
+        this.oppositeProgramAction = 'decrypted'
       }
     },
-    mounted() {
+    mounted () {
       this.$electron.ipcRenderer.on('p5:fileSelector:plainTextSelected', (event, data) => {
         this.fileToCrypto = data.fileName
         this.fileFromCrypto = data.encryptedFileName
