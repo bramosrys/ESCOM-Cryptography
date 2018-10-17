@@ -9,7 +9,7 @@
                 size="200"
                 color="grey lighten-4"
               >
-                <img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" alt="avatar">
+                <img src="https://image.ibb.co/cVNLD0/me.jpg" alt="avatar">
               </v-avatar>
             </v-layout>
           </v-flex>

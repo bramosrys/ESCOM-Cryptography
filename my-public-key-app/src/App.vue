@@ -6,7 +6,7 @@
       dark
     >
       <v-layout align-center justify-center column>
-        <v-toolbar-title color="red">Brayan Ramos Reyes - My Public RSA Key</v-toolbar-title>
+        <v-toolbar-title color="red" xs12 md12>Brayan Ramos Reyes - My Public RSA Key</v-toolbar-title>
       </v-layout>
     </v-toolbar>
     <v-content>
