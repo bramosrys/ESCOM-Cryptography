@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12>
+  <v-flex xs12 blue accent-1>
     <v-card raised>
       <v-container fluid grid-list-lg>
         <v-layout row wrap>
@@ -9,7 +9,7 @@
                 size="200"
                 color="grey lighten-4"
               >
-                <img src="https://image.ibb.co/cVNLD0/me.jpg" alt="avatar">
+                <img src="../assets/me.jpg" alt="avatar">
               </v-avatar>
             </v-layout>
           </v-flex>

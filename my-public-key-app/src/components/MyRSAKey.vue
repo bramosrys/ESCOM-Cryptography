@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12>
+  <v-flex xs12 blue accent-1>
     <v-card raised>
       <v-container fluid grid-list-lg>
         <v-layout row wrap>
