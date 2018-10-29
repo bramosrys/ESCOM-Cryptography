@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -107,7 +107,7 @@ try {
 } catch (er) {}
 
 var GLOBSTAR = minimatch.GLOBSTAR = Minimatch.GLOBSTAR = {}
-var expand = __webpack_require__(35)
+var expand = __webpack_require__(36)
 
 var plTypes = {
   '!': { open: '(?:(?!(?:', close: '))[^/]*?)'},
@@ -1067,7 +1067,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(25);
+exports.humanize = __webpack_require__(26);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -1320,18 +1320,18 @@ var fs = __webpack_require__(1)
 var rp = __webpack_require__(10)
 var minimatch = __webpack_require__(5)
 var Minimatch = minimatch.Minimatch
-var inherits = __webpack_require__(38)
-var EE = __webpack_require__(40).EventEmitter
+var inherits = __webpack_require__(39)
+var EE = __webpack_require__(41).EventEmitter
 var path = __webpack_require__(0)
 var assert = __webpack_require__(4)
 var isAbsolute = __webpack_require__(6)
-var globSync = __webpack_require__(41)
+var globSync = __webpack_require__(42)
 var common = __webpack_require__(11)
 var alphasort = common.alphasort
 var alphasorti = common.alphasorti
 var setopts = common.setopts
 var ownProp = common.ownProp
-var inflight = __webpack_require__(42)
+var inflight = __webpack_require__(43)
 var util = __webpack_require__(3)
 var childrenIgnored = common.childrenIgnored
 var isIgnored = common.isIgnored
@@ -2083,7 +2083,7 @@ var origRealpathSync = fs.realpathSync
 
 var version = process.version
 var ok = /^v[0-5]\./.test(version)
-var old = __webpack_require__(34)
+var old = __webpack_require__(35)
 
 function newError (er) {
   return er && er.syscall === 'realpath' && (
@@ -2495,7 +2495,7 @@ var _path = __webpack_require__(0);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _https = __webpack_require__(47);
+var _https = __webpack_require__(48);
 
 var _https2 = _interopRequireDefault(_https);
 
@@ -2545,17 +2545,21 @@ var changePermissions = exports.changePermissions = function changePermissions(d
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_electron__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_electron__);
+/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_electron__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_electron___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_electron__);
+
 
 
 var fs = __webpack_require__(1);
 var path = __webpack_require__(0);
-var _ = __webpack_require__(48);
-var math = __webpack_require__(49);
-var cryptojs = __webpack_require__(50);
-var crypto = __webpack_require__(51);
-var bmp = __webpack_require__(52);
+var _ = __webpack_require__(52);
+var math = __webpack_require__(53);
+var cryptojs = __webpack_require__(54);
+var crypto = __webpack_require__(16);
+var bmp = __webpack_require__(55);
+var randomstring = __webpack_require__(56);
 
 if (process.env.NODE_ENV !== 'development') {
   global.__static = __webpack_require__(0).join(__dirname, '/static').replace(/\\/g, '\\\\');
@@ -2565,7 +2569,7 @@ var mainWindow = void 0;
 var winURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080' : 'file://' + __dirname + '/index.html';
 
 function createWindow() {
-  mainWindow = new __WEBPACK_IMPORTED_MODULE_0_electron__["BrowserWindow"]({
+  mainWindow = new __WEBPACK_IMPORTED_MODULE_1_electron__["BrowserWindow"]({
     height: 900,
     useContentSize: true,
     width: 800,
@@ -2579,22 +2583,22 @@ function createWindow() {
   });
 }
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('ready', createWindow);
-__WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('window-all-closed', function () {
+__WEBPACK_IMPORTED_MODULE_1_electron__["app"].on('ready', createWindow);
+__WEBPACK_IMPORTED_MODULE_1_electron__["app"].on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
-    __WEBPACK_IMPORTED_MODULE_0_electron__["app"].quit();
+    __WEBPACK_IMPORTED_MODULE_1_electron__["app"].quit();
   }
 });
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["app"].on('activate', function () {
+__WEBPACK_IMPORTED_MODULE_1_electron__["app"].on('activate', function () {
   if (mainWindow === null) {
     createWindow();
   }
 });
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedPlainText', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p0:fileSelector:requestedPlainText', function (event, configurations) {
   console.log('Event received to open a plain file selector and emmit the path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the plain text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -2628,9 +2632,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedP
     }
   });
 });
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedEncryptedText', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p0:fileSelector:requestedEncryptedText', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the decrypted path');
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the encrypted text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -2673,9 +2677,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p0:fileSelector:requestedE
   });
 });
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('fileSelector:requestedPlainText', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('fileSelector:requestedPlainText', function (event, configurations) {
   console.log('Event received to open a plain file selector and emmit the path');
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the plain text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -2714,9 +2718,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('fileSelector:requestedPlai
     }
   });
 });
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('fileSelector:requestedEncryptedText', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('fileSelector:requestedEncryptedText', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the decrypted path');
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the encrypted text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -2757,9 +2761,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('fileSelector:requestedEncr
   });
 });
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedPlainText', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p2:fileSelector:requestedPlainText', function (event, configurations) {
   console.log('Event received to open a plain file selector and emmit the path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the plain text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -2818,9 +2822,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedP
     }
   });
 });
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedEncryptedText', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p2:fileSelector:requestedEncryptedText', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the encrypted text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -2914,9 +2918,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p2:fileSelector:requestedE
   });
 });
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedPlainImage', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p4:fileSelector:requestedPlainImage', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the encrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the plain image",
     filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
     properties: ['openFile']
@@ -2941,13 +2945,13 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedP
           if (err) {
             throw err;
           }
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
+          __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
             title: 'Encryption done',
             type: 'info',
             message: 'The file was encrypted correctly',
             buttons: ["Ok,thanks!"]
           });
-          __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(encryptedFileName);
+          __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
           event.sender.send('p4:fileSelector:plainImageSelected', {
             fileName: fileNames[0],
             cipheredFileName: encryptedFileName
@@ -2957,9 +2961,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedP
     }
   });
 });
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedEncryptedImage', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p4:fileSelector:requestedEncryptedImage', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the encrypted image",
     filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
     properties: ['openFile']
@@ -2980,7 +2984,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedE
           var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
         } catch (e) {
           console.log(e);
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Wrong password or algorithm', 'The password its wrong or the algorithm its no the original used at encryption, please retry');
+          __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Wrong password or algorithm', 'The password its wrong or the algorithm its no the original used at encryption, please retry');
           return;
         }
         var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + configurations.algorithm.text + '.bmp';
@@ -2988,13 +2992,13 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedE
           if (err) {
             throw err;
           }
-          __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
+          __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
             title: 'Decryption done',
             type: 'info',
             message: 'The file was decrypted correctly',
             buttons: ["Ok,thanks!"]
           });
-          __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(decryptedFileName);
+          __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
           event.sender.send('p4:fileSelector:encryptedImageSelected', {
             fileName: fileNames[0],
             decryptedFileName: decryptedFileName
@@ -3005,9 +3009,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p4:fileSelector:requestedE
   });
 });
 
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPlainTextFile', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p5:fileSelector:requestPlainTextFile', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the encrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the plain text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -3017,7 +3021,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
         if (err) {
           throw err;
         }
-        __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
           title: "Select the key file",
           filters: [{ name: 'PEM files', extensions: ['pem'] }],
           properties: ['openFile']
@@ -3033,7 +3037,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
                     encrypted = crypto.publicEncrypt(key, plainTextData);
                   } catch (e) {
                     console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
                     return;
                   }
                 } else {
@@ -3042,7 +3046,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
                     encrypted = crypto.privateEncrypt(key, plainTextData);
                   } catch (e) {
                     console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
                     return;
                   }
                 }
@@ -3053,13 +3057,13 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
                   if (err) {
                     throw err;
                   }
-                  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
                     title: 'Encryption done',
                     type: 'info',
                     message: 'The file was encrypted correctly',
                     buttons: ["Ok,thanks!"]
                   });
-                  __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(encryptedFileName);
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
                   event.sender.send('p5:fileSelector:plainTextSelected', {
                     fileName: fileNames[0],
                     encryptedFileName: encryptedFileName
@@ -3068,7 +3072,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
               });
             } catch (e) {
               console.log(e);
-              __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
+              __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
             }
           }
         });
@@ -3076,10 +3080,9 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestPla
     }
   });
 });
-
-__WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEncryptedFile', function (event, configurations) {
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p5:fileSelector:requestEncryptedFile', function (event, configurations) {
   console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
     title: "Select the encrypted text file",
     filters: [{ name: 'Text files', extensions: ['txt'] }],
     properties: ['openFile']
@@ -3089,7 +3092,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
         if (err) {
           throw err;
         }
-        __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showOpenDialog(mainWindow, {
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
           title: "Select the key file",
           filters: [{ name: 'PEM files', extensions: ['pem'] }],
           properties: ['openFile']
@@ -3104,7 +3107,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
                     var decrypted = crypto.publicDecrypt(key, encryptedTextData);
                   } catch (e) {
                     console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
                     return;
                   }
                 } else {
@@ -3113,7 +3116,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
                     var decrypted = crypto.privateDecrypt(key, encryptedTextData);
                   } catch (e) {
                     console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
                     return;
                   }
                 }
@@ -3124,13 +3127,13 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
                   if (err) {
                     throw err;
                   }
-                  __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showMessageBox(mainWindow, {
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
                     title: 'Decryption done',
                     type: 'info',
                     message: 'The file was decrypted correctly',
                     buttons: ["Ok,thanks!"]
                   });
-                  __WEBPACK_IMPORTED_MODULE_0_electron__["shell"].openItem(decryptedFileName);
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
                   event.sender.send('p5:fileSelector:encryptedTextSelected', {
                     fileName: fileNames[0],
                     decryptedFileName: decryptedFileName
@@ -3139,7 +3142,7 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
               });
             } catch (e) {
               console.log(e);
-              __WEBPACK_IMPORTED_MODULE_0_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+              __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
             }
           }
         });
@@ -3147,27 +3150,282 @@ __WEBPACK_IMPORTED_MODULE_0_electron__["ipcMain"].on('p5:fileSelector:requestEnc
     }
   });
 });
+
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p6:fileSelector:requestPlainTextFile', function (event, configurations) {
+  console.log('Event received to open a file selector and emmit the encrypted path', configurations);
+  readTextFile('Plain Text', function (err, plainTextFile, plainTextData) {
+    readRSAKeyFile('Public', function (err, publicKeyFile, publicKeyData) {
+      readRSAKeyFile('Private', function (err, privateKeyFile, privateKeyData) {
+        hashFile(plainTextFile, privateKeyData, function (err, encryptedSign) {
+          try {
+            console.log('Cifrando el archivo con AES 256');
+            var encryptionKey = randomstring.generate({ length: 32, charset: 'alphabetic' });
+            encryptAES256(encryptionKey, plainTextData.toString(), function (encryptedObject) {
+              console.log('El mensaje cifrado con aes 256: ', encryptedObject, 'La llave usada: ' + encryptionKey);
+
+              encryptAESKey(publicKeyData, encryptionKey, function (encryptedKeyAES) {
+                var encryptedAndSignedMessageObj = {
+                  message: encryptedObject,
+                  sign: encryptedSign,
+                  messageKey: encryptedKeyAES
+                };
+                var encryptedAndSignedMessage = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(encryptedAndSignedMessageObj, null, 2);
+                var encryptedFileName = path.parse(plainTextFile).dir + '/' + path.parse(plainTextFile).name + '_encrypted' + '.txt';
+                writeFile(encryptedFileName, encryptedAndSignedMessage, function () {
+                  event.sender.send('p6:fileSelector:plainTextSelected', {
+                    fileName: plainTextFile,
+                    encryptedFileName: encryptedFileName
+                  });
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                    title: 'Encryption done',
+                    type: 'info',
+                    message: 'The file was encrypted correctly',
+                    buttons: ["Ok,thanks!"]
+                  });
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
+                });
+              });
+            });
+          } catch (e) {
+            console.log(e);
+            __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the message with AES. \n Error: ' + e);
+          }
+        });
+      });
+    });
+  });
+});
+
+__WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p6:fileSelector:requestEncryptedFile', function (event, configurations) {
+  console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+  readTextFile('Encrypted Text', function (err, encryptedTextFile, encryptedTextData) {
+    readRSAKeyFile('Public', function (err, publicKeyFile, publicKeyData) {
+      readRSAKeyFile('Private', function (err, privateKeyFile, privateKeyData) {
+        var parsedEncryptedFile = JSON.parse(encryptedTextData);
+
+        decryptAESKey(privateKeyData, new Buffer(parsedEncryptedFile.messageKey), function (decryptedAESKey) {
+          console.log('Decrypted Aes KEY - decryptedAESKey: ', decryptedAESKey);
+
+          decryptAES256(decryptedAESKey, parsedEncryptedFile.message, function (decryptedContents) {
+            console.log('El mensaje descifrado es - decryptedContents: ', decryptedContents);
+
+            decryptSign(parsedEncryptedFile.sign, publicKeyData, function (decryptedSign) {
+              console.log('La firma descifrada es - decryptedSign: ', decryptedSign.toString('hex'));
+
+              var messageHash = crypto.createHash('sha512').update(decryptedContents).digest('hex');
+              console.log('El digesto del mensaje es - messageHash: ', messageHash);
+
+              if (decryptedSign.toString('hex') === messageHash) {
+                var decryptedAndSignedObj = {
+                  message: decryptedContents.trim(),
+                  sign: decryptedSign.toString('hex'),
+                  messageKey: decryptedAESKey.toString('hex')
+                };
+                var decryptedAndSignedObjMsg = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(decryptedAndSignedObj, null, 2);
+                var decryptedFileName = path.parse(encryptedTextFile).dir + '/' + path.parse(encryptedTextFile).name + '_decrypted' + '.txt';
+                writeFile(decryptedFileName, decryptedAndSignedObjMsg, function () {
+                  event.sender.send('p6:fileSelector:encryptedTextSelected', {
+                    fileName: encryptedTextFile,
+                    decryptedFileName: decryptedFileName
+                  });
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                    title: 'Decryption done',
+                    type: 'info',
+                    message: 'The file was decrypted correctly',
+                    buttons: ["Ok,thanks!"]
+                  });
+                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
+                });
+              } else {
+                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                  title: 'Decryption failed',
+                  type: 'error',
+                  message: 'The file signature doesnt match, be careful, there may be somebody pretending to be who you expect',
+                  buttons: ["Ok,thanks!"]
+                });
+              }
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
+function encryptAES256(encryptionKey, text, callback) {
+  var iv = crypto.randomBytes(16);
+  var cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(encryptionKey), iv);
+  var encrypted = cipher.update(text);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  var message = {
+    iv: iv.toString('hex'),
+    contents: encrypted.toString('hex')
+  };
+  callback(message);
+}
+
+function decryptAES256(encryptionKey, encryptedMessage, callback) {
+  try {
+    var iv = new Buffer(encryptedMessage.iv, 'hex');
+    var encryptedText = new Buffer(encryptedMessage.contents, 'hex');
+    var decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(encryptionKey), iv);
+    var decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    callback(decrypted.toString('utf8'));
+  } catch (e) {
+    console.log(e);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the message with AES. \n Error: ' + e);
+  }
+}
+
+function readTextFile(fileType, callback) {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+    title: 'Select the ' + fileType + ' text file',
+    filters: [{ name: 'Text files', extensions: ['txt'] }],
+    properties: ['openFile']
+  }, function (fileNames) {
+    if (fileNames) {
+      try {
+        fs.readFile(fileNames[0].toString(), function (err, plainTextData) {
+          if (err) {
+            callback(err, null, null);
+            throw err;
+          }
+          callback(null, fileNames[0].toString(), plainTextData);
+        });
+      } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to open the text file. \n Error: ' + e);
+      }
+    }
+  });
+}
+
+function readRSAKeyFile(keyType, callback) {
+  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+    title: 'Select the ' + keyType + ' key file',
+    filters: [{ name: 'PEM files', extensions: ['pem'] }],
+    properties: ['openFile']
+  }, function (key) {
+    if (key) {
+      try {
+        fs.readFile(key[0].toString(), function (err, keyData) {
+          if (err) {
+            callback(err, null, null);
+            throw err;
+          }
+          callback(null, key[0].toString(), keyData);
+        });
+      } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to open the key file. \n Error: ' + e);
+      }
+    }
+  });
+}
+
+function hashFile(filePath, privateKey, callback) {
+  try {
+    var digest = null;
+    var encryptedDigest = null;
+    var hash = crypto.createHash('sha512');
+    var input = fs.createReadStream(filePath);
+    input.on('readable', function () {
+      var data = input.read();
+      if (data) hash.update(data);else {
+        digest = hash.digest();
+        console.log('El digesto del mensaje es: ', digest.toString('hex'));
+      }
+    });
+    input.on('close', function () {
+      try {
+        encryptedDigest = crypto.privateEncrypt(privateKey, digest);
+
+        callback(null, encryptedDigest, digest);
+      } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the digest with RSA Private key. \n Error: ' + e);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to hash the data. \n Error: ' + e);
+  }
+}
+
+function decryptSign(sign, publicKey, callback) {
+  var decryptedSignAes = void 0;
+
+  try {
+    decryptedSignAes = crypto.publicDecrypt(publicKey, new Buffer(sign));
+    callback(decryptedSignAes);
+  } catch (e) {
+    console.log(e);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the AES key with private key RSA. \n Error: ' + e);
+  }
+}
+
+function encryptAESKey(publicKey, password, callback) {
+  var encryptedKeyAES = void 0;
+
+  try {
+    encryptedKeyAES = crypto.publicEncrypt(publicKey, new Buffer(password));
+    callback(encryptedKeyAES);
+  } catch (e) {
+    console.log(e);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the AES key with public key RSA. \n Error: ' + e);
+  }
+}
+
+function decryptAESKey(privateKey, encryptedPassword, callback) {
+  var decryptedKeyAes = void 0;
+
+  try {
+    decryptedKeyAes = crypto.privateDecrypt(privateKey, new Buffer(encryptedPassword));
+    callback(decryptedKeyAes);
+  } catch (e) {
+    console.log(e);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the AES key with private key RSA. \n Error: ' + e);
+  }
+}
+
+function writeFile(filePath, data, callback) {
+  console.log('filePath - filePath: ', filePath);
+  console.log('data to write - data: ', data);
+  fs.writeFile(filePath, data, 'utf8', function (err) {
+    if (err) {
+      throw err;
+    }
+    callback();
+  });
+}
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src/main"))
 
 /***/ }),
 /* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(17);
-module.exports = __webpack_require__(15);
-
+module.exports = require("crypto");
 
 /***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(18);
+module.exports = __webpack_require__(15);
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
 
 process.env.NODE_ENV = 'development';
 
-__webpack_require__(18)({ showDevTools: true });
+__webpack_require__(19)({ showDevTools: true });
 
 __webpack_require__(2).app.on('ready', function () {
-  var installExtension = __webpack_require__(30);
+  var installExtension = __webpack_require__(31);
   installExtension.default(installExtension.VUEJS_DEVTOOLS).then(function () {}).catch(function (err) {
     console.log('Unable to install `vue-devtools`: \n', err);
   });
@@ -3176,14 +3434,14 @@ __webpack_require__(2).app.on('ready', function () {
 __webpack_require__(15);
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 const electron = __webpack_require__(2);
-const localShortcut = __webpack_require__(19);
-const isDev = __webpack_require__(29);
+const localShortcut = __webpack_require__(20);
+const isDev = __webpack_require__(30);
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -3280,16 +3538,16 @@ module.exports.openDevTools = openDevTools;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 const {app, BrowserWindow} = __webpack_require__(2);
-const isAccelerator = __webpack_require__(20);
-const equals = __webpack_require__(21);
-const {toKeyEvent} = __webpack_require__(22);
-const _debug = __webpack_require__(23);
+const isAccelerator = __webpack_require__(21);
+const equals = __webpack_require__(22);
+const {toKeyEvent} = __webpack_require__(23);
+const _debug = __webpack_require__(24);
 
 const debug = _debug('electron-localshortcut');
 
@@ -3589,7 +3847,7 @@ module.exports = {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3617,7 +3875,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3663,7 +3921,7 @@ module.exports = areEqual;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3934,7 +4192,7 @@ exports.toKeyEvent = toKeyEvent;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3943,14 +4201,14 @@ exports.toKeyEvent = toKeyEvent;
  */
 
 if (typeof process !== 'undefined' && process.type === 'renderer') {
-  module.exports = __webpack_require__(24);
+  module.exports = __webpack_require__(25);
 } else {
-  module.exports = __webpack_require__(26);
+  module.exports = __webpack_require__(27);
 }
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -4141,7 +4399,7 @@ function localstorage() {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /**
@@ -4299,14 +4557,14 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var tty = __webpack_require__(27);
+var tty = __webpack_require__(28);
 var util = __webpack_require__(3);
 
 /**
@@ -4494,7 +4752,7 @@ function createWritableStdioStream (fd) {
 
     case 'PIPE':
     case 'TCP':
-      var net = __webpack_require__(28);
+      var net = __webpack_require__(29);
       stream = new net.Socket({
         fd: fd,
         readable: false,
@@ -4553,19 +4811,19 @@ exports.enable(load());
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("tty");
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4577,7 +4835,7 @@ module.exports = isEnvSet ? getFromEnv : (process.defaultApp || /node_modules[\\
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4602,11 +4860,11 @@ var _path = __webpack_require__(0);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _semver = __webpack_require__(31);
+var _semver = __webpack_require__(32);
 
 var _semver2 = _interopRequireDefault(_semver);
 
-var _downloadChromeExtension = __webpack_require__(32);
+var _downloadChromeExtension = __webpack_require__(33);
 
 var _downloadChromeExtension2 = _interopRequireDefault(_downloadChromeExtension);
 
@@ -4713,7 +4971,7 @@ var MOBX_DEVTOOLS = exports.MOBX_DEVTOOLS = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 exports = module.exports = SemVer;
@@ -6043,7 +6301,7 @@ function coerce(version) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6061,11 +6319,11 @@ var _path = __webpack_require__(0);
 
 var _path2 = _interopRequireDefault(_path);
 
-var _rimraf = __webpack_require__(33);
+var _rimraf = __webpack_require__(34);
 
 var _rimraf2 = _interopRequireDefault(_rimraf);
 
-var _crossUnzip = __webpack_require__(43);
+var _crossUnzip = __webpack_require__(44);
 
 var _crossUnzip2 = _interopRequireDefault(_crossUnzip);
 
@@ -6114,7 +6372,7 @@ var downloadChromeExtension = function downloadChromeExtension(chromeStoreID, fo
 exports.default = downloadChromeExtension;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = rimraf
@@ -6484,7 +6742,7 @@ function rmkidsSync (p, options) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Copyright Joyent, Inc. and other Node contributors.
@@ -6793,11 +7051,11 @@ exports.realpath = function realpath(p, cache, cb) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var concatMap = __webpack_require__(36);
-var balanced = __webpack_require__(37);
+var concatMap = __webpack_require__(37);
+var balanced = __webpack_require__(38);
 
 module.exports = expandTop;
 
@@ -7000,7 +7258,7 @@ function expand(str, isTop) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = function (xs, fn) {
@@ -7019,7 +7277,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7085,7 +7343,7 @@ function range(a, b, str) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 try {
@@ -7093,12 +7351,12 @@ try {
   if (typeof util.inherits !== 'function') throw '';
   module.exports = util.inherits;
 } catch (e) {
-  module.exports = __webpack_require__(39);
+  module.exports = __webpack_require__(40);
 }
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -7127,13 +7385,13 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = require("events");
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = globSync
@@ -7625,7 +7883,7 @@ GlobSync.prototype._makeAbs = function (f) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var wrappy = __webpack_require__(12)
@@ -7685,12 +7943,12 @@ function slice (args) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var spawn = __webpack_require__(44).spawn
+var spawn = __webpack_require__(45).spawn
 var slice = Array.prototype.slice
 
 var unzip = process.platform === 'win32' ? forWin32 : forUnix
@@ -7701,7 +7959,7 @@ module.exports = unzip
 
 // https://github.com/fritx/win-7zip
 function forWin32 (inPath, outPath, callback) {
-  var _7z = __webpack_require__(45)['7z']
+  var _7z = __webpack_require__(46)['7z']
 
   // very 奇葩
   // eg. 7z x archive.zip -oc:\Doc
@@ -7744,17 +8002,17 @@ function onceify (fn) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("child_process");
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__dirname) {var resolve = __webpack_require__(0).resolve
-var bin = __webpack_require__(46).bin
+var bin = __webpack_require__(47).bin
 
 module.exports = map_obj(bin, function(v){
   return resolve(__dirname, v)
@@ -7770,46 +8028,271 @@ function map_obj(obj, fn){
 /* WEBPACK VAR INJECTION */}.call(exports, "node_modules/7zip"))
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = {"_args":[["7zip@0.0.6","/home/bramosrys/Documents/Github/ESCOM-Cryptography/CryptoCOM"]],"_development":true,"_from":"7zip@0.0.6","_id":"7zip@0.0.6","_inBundle":false,"_integrity":"sha1-nK+xca+CMpSQNTtIFvAzR6oVCjA=","_location":"/7zip","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"7zip@0.0.6","name":"7zip","escapedName":"7zip","rawSpec":"0.0.6","saveSpec":null,"fetchSpec":"0.0.6"},"_requiredBy":["/electron-devtools-installer"],"_resolved":"https://registry.npmjs.org/7zip/-/7zip-0.0.6.tgz","_spec":"0.0.6","_where":"/home/bramosrys/Documents/Github/ESCOM-Cryptography/CryptoCOM","bin":{"7z":"7zip-lite/7z.exe"},"bugs":{"url":"https://github.com/fritx/win-7zip/issues"},"description":"7zip Windows Package via Node.js","homepage":"https://github.com/fritx/win-7zip#readme","keywords":["7z","7zip","7-zip","windows","install"],"license":"GNU LGPL","main":"index.js","name":"7zip","repository":{"type":"git","url":"git+ssh://git@github.com/fritx/win-7zip.git"},"scripts":{"test":"mocha"},"version":"0.0.6"}
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = require("https");
 
 /***/ }),
-/* 48 */
-/***/ (function(module, exports) {
-
-module.exports = require("lodash");
-
-/***/ }),
 /* 49 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("mathjs");
+module.exports = { "default": __webpack_require__(50), __esModule: true };
 
 /***/ }),
 /* 50 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("crypto-js");
+var core = __webpack_require__(51);
+var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
+module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
+  return $JSON.stringify.apply($JSON, arguments);
+};
+
 
 /***/ }),
 /* 51 */
 /***/ (function(module, exports) {
 
-module.exports = require("crypto");
+var core = module.exports = { version: '2.5.7' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
 
 /***/ }),
 /* 52 */
 /***/ (function(module, exports) {
 
+module.exports = require("lodash");
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+module.exports = require("mathjs");
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+module.exports = require("crypto-js");
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
 module.exports = require("bmp-js");
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(57);
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var crypto  = __webpack_require__(16);
+var Charset = __webpack_require__(58);
+
+function safeRandomBytes(length) {
+  while (true) {
+    try {
+      return crypto.randomBytes(length);
+    } catch(e) {
+      continue;
+    }
+  }
+}
+
+exports.generate = function(options) {
+  
+  var charset = new Charset();
+  
+  var length, chars, capitalization, string = '';
+  
+  // Handle options
+  if (typeof options === 'object') {
+    length = options.length || 32;
+    
+    if (options.charset) {
+      charset.setType(options.charset);
+    }
+    else {
+      charset.setType('alphanumeric');
+    }
+    
+    if (options.capitalization) {
+      charset.setcapitalization(options.capitalization);
+    }
+    
+    if (options.readable) {
+      charset.removeUnreadable();
+    }
+    
+    charset.removeDuplicates();
+  }
+  else if (typeof options === 'number') {
+    length = options;
+    charset.setType('alphanumeric');
+  }
+  else {
+    length = 32;
+    charset.setType('alphanumeric');
+  }
+  
+  // Generate the string
+  var charsLen = charset.chars.length;
+  var maxByte = 256 - (256 % charsLen);
+  while (length > 0) {
+    var buf = safeRandomBytes(Math.ceil(length * 256 / maxByte));
+    for (var i = 0; i < buf.length && length > 0; i++) {
+      var randomByte = buf.readUInt8(i);
+      if (randomByte < maxByte) {
+        string += charset.chars.charAt(randomByte % charsLen);
+        length--;
+      }
+    }
+  }
+
+  return string;
+};
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayUniq = __webpack_require__(59);
+
+function Charset() {
+  this.chars = '';
+}
+
+Charset.prototype.setType = function(type) {
+  var chars;
+  
+  var numbers    = '0123456789';
+  var charsLower = 'abcdefghijklmnopqrstuvwxyz';
+  var charsUpper = charsLower.toUpperCase();
+  var hexChars   = 'abcdef';
+  
+  if (type === 'alphanumeric') {
+    chars = numbers + charsLower + charsUpper;
+  }
+  else if (type === 'numeric') {
+    chars = numbers;
+  }
+  else if (type === 'alphabetic') {
+    chars = charsLower + charsUpper;
+  }
+  else if (type === 'hex') {
+    chars = numbers + hexChars;
+  }
+  else {
+    chars = type;
+  }
+  
+  this.chars = chars;
+}
+
+Charset.prototype.removeUnreadable = function() {
+  var unreadableChars = /[0OIl]/g;
+  this.chars = this.chars.replace(unreadableChars, '');
+}
+
+Charset.prototype.setcapitalization = function(capitalization) {
+  if (capitalization === 'uppercase') {
+    this.chars = this.chars.toUpperCase();
+  }
+  else if (capitalization === 'lowercase') {
+    this.chars = this.chars.toLowerCase();
+  }
+}
+
+Charset.prototype.removeDuplicates = function() {
+  var charMap = this.chars.split('');
+  charMap = arrayUniq(charMap);
+  this.chars = charMap.join('');
+}
+
+module.exports = exports = Charset;
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// there's 3 implementations written in increasing order of efficiency
+
+// 1 - no Set type is defined
+function uniqNoSet(arr) {
+	var ret = [];
+
+	for (var i = 0; i < arr.length; i++) {
+		if (ret.indexOf(arr[i]) === -1) {
+			ret.push(arr[i]);
+		}
+	}
+
+	return ret;
+}
+
+// 2 - a simple Set type is defined
+function uniqSet(arr) {
+	var seen = new Set();
+	return arr.filter(function (el) {
+		if (!seen.has(el)) {
+			seen.add(el);
+			return true;
+		}
+	});
+}
+
+// 3 - a standard Set type is defined and it has a forEach method
+function uniqSetWithForEach(arr) {
+	var ret = [];
+
+	(new Set(arr)).forEach(function (el) {
+		ret.push(el);
+	});
+
+	return ret;
+}
+
+// V8 currently has a broken implementation
+// https://github.com/joyent/node/issues/8449
+function doesForEachActuallyWork() {
+	var ret = false;
+
+	(new Set([true])).forEach(function (el) {
+		ret = el;
+	});
+
+	return ret === true;
+}
+
+if ('Set' in global) {
+	if (typeof Set.prototype.forEach === 'function' && doesForEachActuallyWork()) {
+		module.exports = uniqSetWithForEach;
+	} else {
+		module.exports = uniqSet;
+	}
+} else {
+	module.exports = uniqNoSet;
+}
+
 
 /***/ })
 /******/ ]);

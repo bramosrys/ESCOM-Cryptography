@@ -6,6 +6,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/AESRSADigitalSign',
+      name: 'AESRSADigitalSign',
+      component: require('@/components/Ciphers/Moderns/AESRSADigitalSign').default
+    },
+    {
       path: '/',
       name: 'WelcomeView',
       component: require('@/components/WelcomeView').default
@@ -40,6 +45,7 @@ export default new Router({
       name: 'RSAPubPriKey',
       component: require('@/components/Ciphers/Moderns/RSAPubPriKey').default
     },
+
 
     {
       path: '*',

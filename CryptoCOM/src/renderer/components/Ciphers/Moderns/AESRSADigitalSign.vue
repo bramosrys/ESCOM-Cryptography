@@ -3,8 +3,8 @@
         <v-flex xs12 md12 class="mt-3">
             <v-card>
                 <v-card-text>
-                    <p class="practice-name">Fifth Practice - RSA Public & Private key encryption</p>
-                    <p class="practice-description">Encrypting a txt file with RSA</p>
+                    <p class="practice-name">Sixth Practice - RSA Public & Private key encryption</p>
+                    <p class="practice-description">Encrypting a txt file with AES and signing it with RSA</p>
                 </v-card-text>
             </v-card>
         </v-flex>
@@ -12,8 +12,7 @@
             <v-card>
                 <v-card-text>
                     <p class="practice-label">Encryption</p>
-                    <v-btn @click="selectPlainTextFile('Public')">Using public key</v-btn>
-                    <v-btn @click="selectPlainTextFile('Private')">Using private key</v-btn>
+                    <v-btn @click="selectPlainTextFile()">Select your plain text file</v-btn>
                 </v-card-text>
             </v-card>
         </v-flex>
@@ -21,8 +20,7 @@
             <v-card>
                 <v-card-text>
                     <p class="practice-label">Decryption</p>
-                    <v-btn @click="selectCipheredTextFile('Public')">Using public key</v-btn>
-                    <v-btn @click="selectCipheredTextFile('Private')">Using private key</v-btn>
+                    <v-btn @click="selectCipheredTextFile()">Select your encrypted text file</v-btn>
                 </v-card-text>
             </v-card>
         </v-flex>
@@ -50,7 +48,7 @@
 
   const {ipcRenderer} = electron
   export default {
-    name: "RSAPubPriKey",
+    name: "AESRSADigitalSign",
     data () {
       return {
         fileToCrypto: null,
@@ -58,40 +56,31 @@
         fileFromCrypto: null,
         resultOfCrypto: null,
         programAction: null,
-        gcd: null,
         oppositeProgramAction: null,
         valid: false,
-        configurations: {
-          key: null,
-          keyType: null
-        },
-        keyRules: [
-          v => !!v || 'The key is required'
-        ],
+        configurations: {}
       }
     },
     methods: {
-      selectPlainTextFile (keyTpe) {
-        this.configurations.keyType = keyTpe
+      selectPlainTextFile () {
         console.log('sending event to ipcRenderer (fileRequest)')
-        ipcRenderer.send('p5:fileSelector:requestPlainTextFile', this.configurations)
+        ipcRenderer.send('p6:fileSelector:requestPlainTextFile', this.configurations)
         this.programAction = 'encrypt'
         this.oppositeProgramAction = 'encrypted'
       },
-      selectCipheredTextFile (keyType) {
-        this.configurations.keyType = keyType
+      selectCipheredTextFile () {
         console.log('sending event to ipcRenderer (fileRequest)')
-        ipcRenderer.send('p5:fileSelector:requestEncryptedFile', this.configurations)
+        ipcRenderer.send('p6:fileSelector:requestEncryptedFile', this.configurations)
         this.programAction = 'decrypt'
         this.oppositeProgramAction = 'decrypted'
       }
     },
     mounted () {
-      this.$electron.ipcRenderer.on('p5:fileSelector:plainTextSelected', (event, data) => {
+      this.$electron.ipcRenderer.on('p6:fileSelector:plainTextSelected', (event, data) => {
         this.fileToCrypto = data.fileName
         this.fileFromCrypto = data.encryptedFileName
       })
-      this.$electron.ipcRenderer.on('p5:fileSelector:encryptedTextSelected', (event, data) => {
+      this.$electron.ipcRenderer.on('p6:fileSelector:encryptedTextSelected', (event, data) => {
         this.fileToCrypto = data.fileName
         this.fileFromCrypto = data.decryptedFileName
       })
@@ -104,9 +93,5 @@
         width: 100%;
         height: 4em;
         overflow: hidden;
-    }
-
-    .logo {
-        max-width: 70%;
     }
 </style>

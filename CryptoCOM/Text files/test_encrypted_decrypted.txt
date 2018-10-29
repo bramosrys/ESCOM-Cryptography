@@ -1,1 +1,5 @@
-anita lava la tina
+{
+  "message": "anita lava la tina",
+  "sign": "75b96afe83d2b6dcd6d9d80d61be1d68aa20c91bd3baccd6f4e564aa9faea0b4d17ad3031197d491ed3d6174e9b0cf16733fe068846614699ac7de08adf2c74d",
+  "messageKey": "744f58476c626e73566d446467707967666365576f6a78664e7459524a78744a"
+}
