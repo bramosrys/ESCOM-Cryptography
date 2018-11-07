@@ -2560,846 +2560,850 @@ var cryptojs = __webpack_require__(54);
 var crypto = __webpack_require__(16);
 var bmp = __webpack_require__(55);
 var randomstring = __webpack_require__(56);
+var endOfLine = __webpack_require__(60).EOL;
 
 if (process.env.NODE_ENV !== 'development') {
-  global.__static = __webpack_require__(0).join(__dirname, '/static').replace(/\\/g, '\\\\');
+    global.__static = __webpack_require__(0).join(__dirname, '/static').replace(/\\/g, '\\\\');
 }
 
 var mainWindow = void 0;
 var winURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080' : 'file://' + __dirname + '/index.html';
 
 function createWindow() {
-  mainWindow = new __WEBPACK_IMPORTED_MODULE_1_electron__["BrowserWindow"]({
-    height: 900,
-    useContentSize: true,
-    width: 800,
-    icon: path.join(__dirname, '/../renderer/assets/icons/icon.ico')
-  });
-  mainWindow.loadURL(winURL);
-  mainWindow.maximize();
+    mainWindow = new __WEBPACK_IMPORTED_MODULE_1_electron__["BrowserWindow"]({
+        height: 900,
+        useContentSize: true,
+        width: 800,
+        icon: path.join(__dirname, '/../renderer/assets/icons/icon.ico')
+    });
+    mainWindow.loadURL(winURL);
+    mainWindow.maximize();
 
-  mainWindow.on('closed', function () {
-    mainWindow = null;
-  });
+    mainWindow.on('closed', function () {
+        mainWindow = null;
+    });
 }
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["app"].on('ready', createWindow);
 __WEBPACK_IMPORTED_MODULE_1_electron__["app"].on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    __WEBPACK_IMPORTED_MODULE_1_electron__["app"].quit();
-  }
+    if (process.platform !== 'darwin') {
+        __WEBPACK_IMPORTED_MODULE_1_electron__["app"].quit();
+    }
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["app"].on('activate', function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
+    if (mainWindow === null) {
+        createWindow();
+    }
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p0:fileSelector:requestedPlainText', function (event, configurations) {
-  console.log('Event received to open a plain file selector and emmit the path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the plain text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a plain file selector and emmit the path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        console.log('data.toString(): ', data.toString('utf8'));
-        var encryptedData = cryptojs.AES.encrypt(data.toString('utf8'), configurations.password);
-        var encryptedDatabase64 = Buffer.from(encryptedData.toString()).toString('base64');
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                console.log('data.toString(): ', data.toString('utf8'));
+                var encryptedData = cryptojs.AES.encrypt(data.toString('utf8'), configurations.password);
+                var encryptedDatabase64 = Buffer.from(encryptedData.toString()).toString('base64');
 
-        var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
-        fs.writeFile(cipheredFileName, encryptedDatabase64, 'utf8', function (err) {
-          if (err) {
-            throw err;
-          }
-          event.sender.send('p0:fileSelector:plainTextSelected', {
-            fileName: fileNames[0],
-            contents: data.toString('utf8'),
-            cipheredFileName: cipheredFileName,
-            cipheredContents: encryptedDatabase64
-          });
-        });
-      });
-    }
-  });
+                var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
+                fs.writeFile(cipheredFileName, encryptedDatabase64, 'utf8', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    event.sender.send('p0:fileSelector:plainTextSelected', {
+                        fileName: fileNames[0],
+                        contents: data.toString('utf8'),
+                        cipheredFileName: cipheredFileName,
+                        cipheredContents: encryptedDatabase64
+                    });
+                });
+            });
+        }
+    });
 });
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p0:fileSelector:requestedEncryptedText', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the decrypted path');
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the encrypted text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a file selector and emmit the decrypted path');
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var decryptedBytes = cryptojs.AES.decrypt(Buffer.from(data.toString(), 'base64').toString('utf8'), configurations.password);
-        console.log('decryptedBytes: ', decryptedBytes);
-        var plainText = decryptedBytes.toString(cryptojs.enc.Utf8);
-        if (plainText === "") {
-          event.sender.send('p0:fileSelector:cipheredTextSelected', {
-            fileName: fileNames[0],
-            contents: data.toString('utf8'),
-            decryptedFileName: NA,
-            decryptedContents: "Error al leer el archivo"
-          });
-        } else {
-          var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
-          fs.writeFile(decryptedFileName, plainText, 'utf8', function (err) {
-            if (err) {
-              throw err;
-            }
-            event.sender.send('p0:fileSelector:cipheredTextSelected', {
-              fileName: fileNames[0],
-              contents: data.toString('utf8'),
-              decryptedFileName: decryptedFileName,
-              decryptedContents: plainText
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var decryptedBytes = cryptojs.AES.decrypt(Buffer.from(data.toString(), 'base64').toString('utf8'), configurations.password);
+                console.log('decryptedBytes: ', decryptedBytes);
+                var plainText = decryptedBytes.toString(cryptojs.enc.Utf8);
+                if (plainText === "") {
+                    event.sender.send('p0:fileSelector:cipheredTextSelected', {
+                        fileName: fileNames[0],
+                        contents: data.toString('utf8'),
+                        decryptedFileName: NA,
+                        decryptedContents: "Error al leer el archivo"
+                    });
+                } else {
+                    var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
+                    fs.writeFile(decryptedFileName, plainText, 'utf8', function (err) {
+                        if (err) {
+                            throw err;
+                        }
+                        event.sender.send('p0:fileSelector:cipheredTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            decryptedFileName: decryptedFileName,
+                            decryptedContents: plainText
+                        });
+                    });
+                }
             });
-          });
         }
-      });
-    }
-  });
+    });
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('fileSelector:requestedPlainText', function (event, configurations) {
-  console.log('Event received to open a plain file selector and emmit the path');
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the plain text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a plain file selector and emmit the path');
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
-        var alphabet = [];
-        for (var i = 97; i < 123; i++) {
-          alphabet.push(String.fromCharCode(i));
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
+                var alphabet = [];
+                for (var i = 97; i < 123; i++) {
+                    alphabet.push(String.fromCharCode(i));
+                }
+                var shiftedText = [];
+                for (var i = 0; i < removedAccents.length; i++) {
+                    shiftedText.push(String.fromCharCode(alphabet[(_.indexOf(alphabet, removedAccents.charAt(i)) + configurations.shiftNumber) % configurations.alphabetLength].charCodeAt(0) - 32));
+                }
+                var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
+                fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    event.sender.send('fileSelector:plainTextSelected', {
+                        fileName: fileNames[0],
+                        contents: data.toString('utf8'),
+                        cipheredFileName: cipheredFileName,
+                        cipheredContents: shiftedText.join('').toString('utf8')
+                    });
+                });
+            });
         }
-        var shiftedText = [];
-        for (var i = 0; i < removedAccents.length; i++) {
-          shiftedText.push(String.fromCharCode(alphabet[(_.indexOf(alphabet, removedAccents.charAt(i)) + configurations.shiftNumber) % configurations.alphabetLength].charCodeAt(0) - 32));
-        }
-        var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
-        fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
-          if (err) {
-            throw err;
-          }
-          event.sender.send('fileSelector:plainTextSelected', {
-            fileName: fileNames[0],
-            contents: data.toString('utf8'),
-            cipheredFileName: cipheredFileName,
-            cipheredContents: shiftedText.join('').toString('utf8')
-          });
-        });
-      });
-    }
-  });
+    });
 });
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('fileSelector:requestedEncryptedText', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the decrypted path');
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the encrypted text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a file selector and emmit the decrypted path');
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
-        var alphabet = [];
-        for (var i = 65; i < 91; i++) {
-          alphabet.push(String.fromCharCode(i));
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
+                var alphabet = [];
+                for (var i = 65; i < 91; i++) {
+                    alphabet.push(String.fromCharCode(i));
+                }
+                var shiftedText = [];
+                var keyToDecrypt = configurations.alphabetLength - configurations.shiftNumber;
+                for (var i = 0; i < removedAccents.length; i++) {
+                    shiftedText.push(String.fromCharCode(alphabet[(_.indexOf(alphabet, removedAccents.charAt(i)) + keyToDecrypt) % configurations.alphabetLength].charCodeAt(0) + 32));
+                }
+                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
+                fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    event.sender.send('fileSelector:cipheredTextSelected', {
+                        fileName: fileNames[0],
+                        contents: data.toString('utf8'),
+                        decryptedFileName: decryptedFileName,
+                        decryptedContents: shiftedText.join('').toString('utf8')
+                    });
+                });
+            });
         }
-        var shiftedText = [];
-        var keyToDecrypt = configurations.alphabetLength - configurations.shiftNumber;
-        for (var i = 0; i < removedAccents.length; i++) {
-          shiftedText.push(String.fromCharCode(alphabet[(_.indexOf(alphabet, removedAccents.charAt(i)) + keyToDecrypt) % configurations.alphabetLength].charCodeAt(0) + 32));
-        }
-        var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
-        fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
-          if (err) {
-            throw err;
-          }
-          event.sender.send('fileSelector:cipheredTextSelected', {
-            fileName: fileNames[0],
-            contents: data.toString('utf8'),
-            decryptedFileName: decryptedFileName,
-            decryptedContents: shiftedText.join('').toString('utf8')
-          });
-        });
-      });
-    }
-  });
+    });
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p2:fileSelector:requestedPlainText', function (event, configurations) {
-  console.log('Event received to open a plain file selector and emmit the path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the plain text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a plain file selector and emmit the path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var rejected = false;
-        var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
-        var alphabet = [];
-        var shiftedText = [];
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var rejected = false;
+                var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
+                var alphabet = [];
+                var shiftedText = [];
 
-        for (var i = configurations.alphabetRange.charCodeAt(0); i <= configurations.alphabetRange.charCodeAt(2); i++) {
-          alphabet.push(String.fromCharCode(i));
-        }
-        var alpha = configurations.alphaNumber;
-        var beta = configurations.betaNumber;
-        for (i = 0; i < removedAccents.length; i++) {
-          var indexOfChar = _.indexOf(alphabet, removedAccents.charAt(i));
-          if (indexOfChar === -1) {
-            rejected = true;
-            event.sender.send('p2:fileSelector:plainTextSelected', {
-              fileName: fileNames[0],
-              contents: data.toString('utf8'),
-              cipheredFileName: "NA",
-              cipheredContents: "Error, one or more characters doesn't belong to the alphabet: " + removedAccents.charAt(i),
-              rejected: rejected
+                for (var i = configurations.alphabetRange.charCodeAt(0); i <= configurations.alphabetRange.charCodeAt(2); i++) {
+                    alphabet.push(String.fromCharCode(i));
+                }
+                var alpha = configurations.alphaNumber;
+                var beta = configurations.betaNumber;
+                for (i = 0; i < removedAccents.length; i++) {
+                    var indexOfChar = _.indexOf(alphabet, removedAccents.charAt(i));
+                    if (indexOfChar === -1) {
+                        rejected = true;
+                        event.sender.send('p2:fileSelector:plainTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            cipheredFileName: "NA",
+                            cipheredContents: "Error, one or more characters doesn't belong to the alphabet: " + removedAccents.charAt(i),
+                            rejected: rejected
+                        });
+                        break;
+                    }
+                    var cFormula = (alpha * indexOfChar + beta) % configurations.alphabetLength;
+                    var charCiphered = String.fromCharCode(alphabet[cFormula].charCodeAt(0) - 32);
+                    shiftedText.push(charCiphered);
+                }
+                if (!rejected) {
+                    var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
+                    fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
+                        if (err) {
+                            throw err;
+                        }
+                        event.sender.send('p2:fileSelector:plainTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            cipheredFileName: cipheredFileName,
+                            cipheredContents: shiftedText.join('').toString('utf8')
+                        });
+                    });
+                }
             });
-            break;
-          }
-          var cFormula = (alpha * indexOfChar + beta) % configurations.alphabetLength;
-          var charCiphered = String.fromCharCode(alphabet[cFormula].charCodeAt(0) - 32);
-          shiftedText.push(charCiphered);
         }
-        if (!rejected) {
-          var cipheredFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted.txt';
-          fs.writeFile(cipheredFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
-            if (err) {
-              throw err;
-            }
-            event.sender.send('p2:fileSelector:plainTextSelected', {
-              fileName: fileNames[0],
-              contents: data.toString('utf8'),
-              cipheredFileName: cipheredFileName,
-              cipheredContents: shiftedText.join('').toString('utf8')
-            });
-          });
-        }
-      });
-    }
-  });
+    });
 });
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p2:fileSelector:requestedEncryptedText', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the encrypted text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var rejected = false;
-        var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
-        var alphabet = [];
-        var shiftedText = [];
-        var coprimesWithAlpha = [];
-        var multiplicativeInverseIndex = [];
-        var availableMultiplicativeInverse = [];
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var rejected = false;
+                var removedAccents = data.toString('utf8').normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\r?\n|\r/g, '').replace(/\s/g, '').replace(/[^A-Za-z]/g, '');
+                var alphabet = [];
+                var shiftedText = [];
+                var coprimesWithAlpha = [];
+                var multiplicativeInverseIndex = [];
+                var availableMultiplicativeInverse = [];
 
-        for (var i = configurations.alphabetRange.charCodeAt(0); i <= configurations.alphabetRange.charCodeAt(2); i++) {
-          alphabet.push(String.fromCharCode(i - 32));
-        }
-        console.log('alphabet: ', alphabet);
+                for (var i = configurations.alphabetRange.charCodeAt(0); i <= configurations.alphabetRange.charCodeAt(2); i++) {
+                    alphabet.push(String.fromCharCode(i - 32));
+                }
+                console.log('alphabet: ', alphabet);
 
-        for (var i = 1; i < configurations.alphabetLength; i++) {
-          if (math.gcd(configurations.alphabetLength, i) === 1) {
-            coprimesWithAlpha.push(i);
-            availableMultiplicativeInverse.push(i);
-          }
-        }
+                for (var i = 1; i < configurations.alphabetLength; i++) {
+                    if (math.gcd(configurations.alphabetLength, i) === 1) {
+                        coprimesWithAlpha.push(i);
+                        availableMultiplicativeInverse.push(i);
+                    }
+                }
 
-        for (var i = 0; i < coprimesWithAlpha.length; i++) {
-          var j = 0;
-          while (availableMultiplicativeInverse.length > 0 && j < configurations.alphabetLength) {
-            if (coprimesWithAlpha[i] * availableMultiplicativeInverse[j] % configurations.alphabetLength === 1) {
-              var multiplicativeInverseElement = {};
-              multiplicativeInverseElement.number = coprimesWithAlpha[i];
-              multiplicativeInverseElement.multiplicativeInverse = availableMultiplicativeInverse[j];
-              multiplicativeInverseIndex.push(multiplicativeInverseElement);
-              multiplicativeInverseElement = {};
-              multiplicativeInverseElement.number = availableMultiplicativeInverse[j];
-              multiplicativeInverseElement.multiplicativeInverse = coprimesWithAlpha[i];
-              multiplicativeInverseIndex.push(multiplicativeInverseElement);
-              availableMultiplicativeInverse.splice(availableMultiplicativeInverse.indexOf(availableMultiplicativeInverse[j]), 1);
-              break;
-            }
-            j++;
-          }
-        }
-        var multiplicativeInverseIndex = _.sortBy(_.uniqBy(multiplicativeInverseIndex, 'number'), 'number');
-        console.log(_.sortBy(_.uniqBy(multiplicativeInverseIndex, 'number'), 'number'));
-        var alpha = configurations.alphaNumber;
-        var beta = configurations.betaNumber;
-        var inverseAlpha = _.find(multiplicativeInverseIndex, { number: alpha }).multiplicativeInverse;
-        var inverseBeta = configurations.alphabetLength - beta;
-        for (i = 0; i < removedAccents.length; i++) {
-          var indexOfChar = _.indexOf(alphabet, removedAccents.charAt(i));
-          if (indexOfChar === -1) {
-            rejected = true;
-            event.sender.send('p2:fileSelector:cipheredTextSelected', {
-              fileName: fileNames[0],
-              contents: data.toString('utf8'),
-              decryptedFileName: "NA",
-              decryptedContents: "Error, one or more characters doesn't belong to the alphabet: " + removedAccents.charAt(i),
-              rejected: rejected
+                for (var i = 0; i < coprimesWithAlpha.length; i++) {
+                    var j = 0;
+                    while (availableMultiplicativeInverse.length > 0 && j < configurations.alphabetLength) {
+                        if (coprimesWithAlpha[i] * availableMultiplicativeInverse[j] % configurations.alphabetLength === 1) {
+                            var multiplicativeInverseElement = {};
+                            multiplicativeInverseElement.number = coprimesWithAlpha[i];
+                            multiplicativeInverseElement.multiplicativeInverse = availableMultiplicativeInverse[j];
+                            multiplicativeInverseIndex.push(multiplicativeInverseElement);
+                            multiplicativeInverseElement = {};
+                            multiplicativeInverseElement.number = availableMultiplicativeInverse[j];
+                            multiplicativeInverseElement.multiplicativeInverse = coprimesWithAlpha[i];
+                            multiplicativeInverseIndex.push(multiplicativeInverseElement);
+                            availableMultiplicativeInverse.splice(availableMultiplicativeInverse.indexOf(availableMultiplicativeInverse[j]), 1);
+                            break;
+                        }
+                        j++;
+                    }
+                }
+                var multiplicativeInverseIndex = _.sortBy(_.uniqBy(multiplicativeInverseIndex, 'number'), 'number');
+                console.log(_.sortBy(_.uniqBy(multiplicativeInverseIndex, 'number'), 'number'));
+                var alpha = configurations.alphaNumber;
+                var beta = configurations.betaNumber;
+                var inverseAlpha = _.find(multiplicativeInverseIndex, { number: alpha }).multiplicativeInverse;
+                var inverseBeta = configurations.alphabetLength - beta;
+                for (i = 0; i < removedAccents.length; i++) {
+                    var indexOfChar = _.indexOf(alphabet, removedAccents.charAt(i));
+                    if (indexOfChar === -1) {
+                        rejected = true;
+                        event.sender.send('p2:fileSelector:cipheredTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            decryptedFileName: "NA",
+                            decryptedContents: "Error, one or more characters doesn't belong to the alphabet: " + removedAccents.charAt(i),
+                            rejected: rejected
+                        });
+                        break;
+                    }
+                    var cFormula = inverseAlpha * (indexOfChar + inverseBeta) % configurations.alphabetLength;
+                    var charCiphered = String.fromCharCode(alphabet[cFormula].charCodeAt(0) + 32);
+                    shiftedText.push(charCiphered);
+                }
+                if (!rejected) {
+                    var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
+                    fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
+                        if (err) {
+                            throw err;
+                        }
+                        event.sender.send('p2:fileSelector:cipheredTextSelected', {
+                            fileName: fileNames[0],
+                            contents: data.toString('utf8'),
+                            decryptedFileName: decryptedFileName,
+                            decryptedContents: shiftedText.join('').toString('utf8')
+                        });
+                    });
+                }
             });
-            break;
-          }
-          var cFormula = inverseAlpha * (indexOfChar + inverseBeta) % configurations.alphabetLength;
-          var charCiphered = String.fromCharCode(alphabet[cFormula].charCodeAt(0) + 32);
-          shiftedText.push(charCiphered);
         }
-        if (!rejected) {
-          var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted.txt';
-          fs.writeFile(decryptedFileName, shiftedText.join('').toString('utf8'), 'utf8', function (err) {
-            if (err) {
-              throw err;
-            }
-            event.sender.send('p2:fileSelector:cipheredTextSelected', {
-              fileName: fileNames[0],
-              contents: data.toString('utf8'),
-              decryptedFileName: decryptedFileName,
-              decryptedContents: shiftedText.join('').toString('utf8')
-            });
-          });
-        }
-      });
-    }
-  });
+    });
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p4:fileSelector:requestedPlainImage', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the encrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the plain image",
-    filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a file selector and emmit the encrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain image",
+        filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var bmpLib = bmp.decode(data);
-        console.log('index - bmpLib - 399 - bmpLib: ', bmpLib);
-        var bmpHeader = data.toString('hex', 0, 54);
-        var bmpImageData = data.toString('hex', 54);
-        var cipher = crypto.createCipher(configurations.algorithm.text, configurations.password);
-        var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
-        var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + configurations.algorithm.text + '.bmp';
-        fs.writeFile(encryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
-          if (err) {
-            throw err;
-          }
-          __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-            title: 'Encryption done',
-            type: 'info',
-            message: 'The file was encrypted correctly',
-            buttons: ["Ok,thanks!"]
-          });
-          __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
-          event.sender.send('p4:fileSelector:plainImageSelected', {
-            fileName: fileNames[0],
-            cipheredFileName: encryptedFileName
-          });
-        });
-      });
-    }
-  });
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var bmpLib = bmp.decode(data);
+                console.log('index - bmpLib - 399 - bmpLib: ', bmpLib);
+                var bmpHeader = data.toString('hex', 0, 54);
+                var bmpImageData = data.toString('hex', 54);
+                var cipher = crypto.createCipher(configurations.algorithm.text, configurations.password);
+                var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
+                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + configurations.algorithm.text + '.bmp';
+                fs.writeFile(encryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                        title: 'Encryption done',
+                        type: 'info',
+                        message: 'The file was encrypted correctly',
+                        buttons: ["Ok,thanks!"]
+                    });
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
+                    event.sender.send('p4:fileSelector:plainImageSelected', {
+                        fileName: fileNames[0],
+                        cipheredFileName: encryptedFileName
+                    });
+                });
+            });
+        }
+    });
 });
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p4:fileSelector:requestedEncryptedImage', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the encrypted image",
-    filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames === undefined) {
-      console.log("No file selected");
-      return;
-    }
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, data) {
-        if (err) {
-          throw err;
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted image",
+        filters: [{ name: 'Bitmap files', extensions: ['bmp'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames === undefined) {
+            console.log("No file selected");
+            return;
         }
-        var bmpHeader = data.toString('hex', 0, 54);
-        var bmpImageData = data.toString('hex', 54);
-        try {
-          var cipher = crypto.createDecipher(configurations.algorithm.text, configurations.password);
-          var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
-        } catch (e) {
-          console.log(e);
-          __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Wrong password or algorithm', 'The password its wrong or the algorithm its no the original used at encryption, please retry');
-          return;
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                var bmpHeader = data.toString('hex', 0, 54);
+                var bmpImageData = data.toString('hex', 54);
+                try {
+                    var cipher = crypto.createDecipher(configurations.algorithm.text, configurations.password);
+                    var encrypted = Buffer.concat([cipher.update(new Buffer(bmpImageData, 'hex')), cipher.final()]).toString('hex');
+                } catch (e) {
+                    console.log(e);
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Wrong password or algorithm', 'The password its wrong or the algorithm its no the original used at encryption, please retry');
+                    return;
+                }
+                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + configurations.algorithm.text + '.bmp';
+                fs.writeFile(decryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
+                    if (err) {
+                        throw err;
+                    }
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                        title: 'Decryption done',
+                        type: 'info',
+                        message: 'The file was decrypted correctly',
+                        buttons: ["Ok,thanks!"]
+                    });
+                    __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
+                    event.sender.send('p4:fileSelector:encryptedImageSelected', {
+                        fileName: fileNames[0],
+                        decryptedFileName: decryptedFileName
+                    });
+                });
+            });
         }
-        var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + configurations.algorithm.text + '.bmp';
-        fs.writeFile(decryptedFileName, bmpHeader + encrypted, 'hex', function (err) {
-          if (err) {
-            throw err;
-          }
-          __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-            title: 'Decryption done',
-            type: 'info',
-            message: 'The file was decrypted correctly',
-            buttons: ["Ok,thanks!"]
-          });
-          __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
-          event.sender.send('p4:fileSelector:encryptedImageSelected', {
-            fileName: fileNames[0],
-            decryptedFileName: decryptedFileName
-          });
-        });
-      });
-    }
-  });
+    });
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p5:fileSelector:requestPlainTextFile', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the encrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the plain text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, plainTextData) {
-        if (err) {
-          throw err;
-        }
-        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-          title: "Select the key file",
-          filters: [{ name: 'PEM files', extensions: ['pem'] }],
-          properties: ['openFile']
-        }, function (keyFile) {
-          if (keyFile) {
-            try {
-              fs.readFile(keyFile[0].toString(), function (err, keyData) {
-                var key = keyData.toString();
-                var encrypted = null;
-                if (configurations.keyType === 'Public') {
-                  try {
-                    console.log('Cifrando con llave pública - : ');
-                    encrypted = crypto.publicEncrypt(key, plainTextData);
-                  } catch (e) {
-                    console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
-                    return;
-                  }
-                } else {
-                  try {
-                    console.log('Cifrando con llave privada - : ');
-                    encrypted = crypto.privateEncrypt(key, plainTextData);
-                  } catch (e) {
-                    console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
-                    return;
-                  }
-                }
-                console.log('encrypted data: ', encrypted);
-                console.log('encrypted contents - encryptedTextData.toString: ', encrypted.toString());
-                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + '.txt';
-                fs.writeFile(encryptedFileName, encrypted, 'utf8', function (err) {
-                  if (err) {
+    console.log('Event received to open a file selector and emmit the encrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the plain text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, plainTextData) {
+                if (err) {
                     throw err;
-                  }
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-                    title: 'Encryption done',
-                    type: 'info',
-                    message: 'The file was encrypted correctly',
-                    buttons: ["Ok,thanks!"]
-                  });
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
-                  event.sender.send('p5:fileSelector:plainTextSelected', {
-                    fileName: fileNames[0],
-                    encryptedFileName: encryptedFileName
-                  });
+                }
+                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+                    title: "Select the key file",
+                    filters: [{ name: 'PEM files', extensions: ['pem'] }],
+                    properties: ['openFile']
+                }, function (keyFile) {
+                    if (keyFile) {
+                        try {
+                            fs.readFile(keyFile[0].toString(), function (err, keyData) {
+                                var key = keyData.toString();
+                                var encrypted = null;
+                                if (configurations.keyType === 'Public') {
+                                    try {
+                                        console.log('Cifrando con llave pública - : ');
+                                        encrypted = crypto.publicEncrypt(key, plainTextData);
+                                    } catch (e) {
+                                        console.log(e);
+                                        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
+                                        return;
+                                    }
+                                } else {
+                                    try {
+                                        console.log('Cifrando con llave privada - : ');
+                                        encrypted = crypto.privateEncrypt(key, plainTextData);
+                                    } catch (e) {
+                                        console.log(e);
+                                        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                                        return;
+                                    }
+                                }
+                                console.log('encrypted data: ', encrypted);
+                                console.log('encrypted contents - encryptedTextData.toString: ', encrypted.toString());
+                                var encryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_encrypted' + '.txt';
+                                fs.writeFile(encryptedFileName, encrypted, 'utf8', function (err) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                                        title: 'Encryption done',
+                                        type: 'info',
+                                        message: 'The file was encrypted correctly',
+                                        buttons: ["Ok,thanks!"]
+                                    });
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
+                                    event.sender.send('p5:fileSelector:plainTextSelected', {
+                                        fileName: fileNames[0],
+                                        encryptedFileName: encryptedFileName
+                                    });
+                                });
+                            });
+                        } catch (e) {
+                            console.log(e);
+                            __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
+                        }
+                    }
                 });
-              });
-            } catch (e) {
-              console.log(e);
-              __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the data. \n Error: ' + e);
-            }
-          }
-        });
-      });
-    }
-  });
+            });
+        }
+    });
 });
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p5:fileSelector:requestEncryptedFile', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: "Select the encrypted text file",
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames) {
-      fs.readFile(fileNames[0].toString(), function (err, encryptedTextData) {
-        if (err) {
-          throw err;
-        }
-        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-          title: "Select the key file",
-          filters: [{ name: 'PEM files', extensions: ['pem'] }],
-          properties: ['openFile']
-        }, function (keyFile) {
-          if (keyFile) {
-            try {
-              fs.readFile(keyFile[0].toString(), function (err, keyData) {
-                var key = keyData.toString();
-                if (configurations.keyType === 'Public') {
-                  try {
-                    console.log('Descifrando con llave pública - : ');
-                    var decrypted = crypto.publicDecrypt(key, encryptedTextData);
-                  } catch (e) {
-                    console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
-                    return;
-                  }
-                } else {
-                  try {
-                    console.log('Descifrando con llave privada - : ');
-                    var decrypted = crypto.privateDecrypt(key, encryptedTextData);
-                  } catch (e) {
-                    console.log(e);
-                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
-                    return;
-                  }
-                }
-                console.log('decrypted data: ', decrypted);
-                console.log('decrypted contents - encryptedTextData.toString: ', decrypted.toString());
-                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + '.txt';
-                fs.writeFile(decryptedFileName, decrypted, 'utf8', function (err) {
-                  if (err) {
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: "Select the encrypted text file",
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames) {
+            fs.readFile(fileNames[0].toString(), function (err, encryptedTextData) {
+                if (err) {
                     throw err;
-                  }
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-                    title: 'Decryption done',
-                    type: 'info',
-                    message: 'The file was decrypted correctly',
-                    buttons: ["Ok,thanks!"]
-                  });
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
-                  event.sender.send('p5:fileSelector:encryptedTextSelected', {
-                    fileName: fileNames[0],
-                    decryptedFileName: decryptedFileName
-                  });
+                }
+                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+                    title: "Select the key file",
+                    filters: [{ name: 'PEM files', extensions: ['pem'] }],
+                    properties: ['openFile']
+                }, function (keyFile) {
+                    if (keyFile) {
+                        try {
+                            fs.readFile(keyFile[0].toString(), function (err, keyData) {
+                                var key = keyData.toString();
+                                if (configurations.keyType === 'Public') {
+                                    try {
+                                        console.log('Descifrando con llave pública - : ');
+                                        var decrypted = crypto.publicDecrypt(key, encryptedTextData);
+                                    } catch (e) {
+                                        console.log(e);
+                                        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                                        return;
+                                    }
+                                } else {
+                                    try {
+                                        console.log('Descifrando con llave privada - : ');
+                                        var decrypted = crypto.privateDecrypt(key, encryptedTextData);
+                                    } catch (e) {
+                                        console.log(e);
+                                        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                                        return;
+                                    }
+                                }
+                                console.log('decrypted data: ', decrypted);
+                                console.log('decrypted contents - encryptedTextData.toString: ', decrypted.toString());
+                                var decryptedFileName = path.parse(fileNames[0]).dir + '/' + path.parse(fileNames[0]).name + '_decrypted' + '.txt';
+                                fs.writeFile(decryptedFileName, decrypted, 'utf8', function (err) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                                        title: 'Decryption done',
+                                        type: 'info',
+                                        message: 'The file was decrypted correctly',
+                                        buttons: ["Ok,thanks!"]
+                                    });
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
+                                    event.sender.send('p5:fileSelector:encryptedTextSelected', {
+                                        fileName: fileNames[0],
+                                        decryptedFileName: decryptedFileName
+                                    });
+                                });
+                            });
+                        } catch (e) {
+                            console.log(e);
+                            __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
+                        }
+                    }
                 });
-              });
-            } catch (e) {
-              console.log(e);
-              __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the data. \n Error: ' + e);
-            }
-          }
-        });
-      });
-    }
-  });
+            });
+        }
+    });
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p6:fileSelector:requestPlainTextFile', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the encrypted path', configurations);
-  readTextFile('Plain Text', function (err, plainTextFile, plainTextData) {
-    readRSAKeyFile('Public', function (err, publicKeyFile, publicKeyData) {
-      readRSAKeyFile('Private', function (err, privateKeyFile, privateKeyData) {
-        hashFile(plainTextFile, privateKeyData, function (err, encryptedSign) {
-          try {
-            console.log('Cifrando el archivo con AES 256');
-            var encryptionKey = randomstring.generate({ length: 32, charset: 'alphabetic' });
-            encryptAES256(encryptionKey, plainTextData.toString(), function (encryptedObject) {
-              console.log('El mensaje cifrado con aes 256: ', encryptedObject, 'La llave usada: ' + encryptionKey);
+    console.log('Event received to open a file selector and emmit the encrypted path', configurations);
+    readTextFile('Plain Text', function (err, plainTextFile, plainTextData) {
+        readRSAKeyFile('Public', function (err, publicKeyFile, publicKeyData) {
+            readRSAKeyFile('Private', function (err, privateKeyFile, privateKeyData) {
+                hashFile(plainTextFile, privateKeyData, function (err, encryptedSign, plainDigest) {
+                    try {
+                        console.log('Cifrando el archivo con AES 256');
+                        var encryptionKey = randomstring.generate({ length: 32, charset: 'alphabetic' });
+                        encryptAES256(encryptionKey, plainTextData.toString(), function (encryptedObject) {
+                            console.log('El mensaje cifrado con aes 256: ', encryptedObject, 'La llave usada: ' + encryptionKey);
 
-              encryptAESKey(publicKeyData, encryptionKey, function (encryptedKeyAES) {
-                var encryptedAndSignedMessageObj = {
-                  message: encryptedObject,
-                  sign: encryptedSign,
-                  messageKey: encryptedKeyAES
-                };
-                var encryptedAndSignedMessage = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(encryptedAndSignedMessageObj, null, 2);
-                var encryptedFileName = path.parse(plainTextFile).dir + '/' + path.parse(plainTextFile).name + '_encrypted' + '.txt';
-                writeFile(encryptedFileName, encryptedAndSignedMessage, function () {
-                  event.sender.send('p6:fileSelector:plainTextSelected', {
-                    fileName: plainTextFile,
-                    encryptedFileName: encryptedFileName
-                  });
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-                    title: 'Encryption done',
-                    type: 'info',
-                    message: 'The file was encrypted correctly',
-                    buttons: ["Ok,thanks!"]
-                  });
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
+                            encryptAESKey(publicKeyData, encryptionKey, function (encryptedKeyAES) {
+                                var encryptedAndSignedMessageObj = {
+                                    message: encryptedObject,
+                                    sign: encryptedSign,
+                                    messageKey: encryptedKeyAES
+                                };
+                                var encryptedAndSignedMessage = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(encryptedAndSignedMessageObj, null, 2);
+                                var encryptedFileName = path.parse(plainTextFile).dir + '/' + path.parse(plainTextFile).name + '_encrypted' + '.txt';
+                                writeFile(encryptedFileName, encryptedAndSignedMessage, function () {
+                                    writeFile(path.parse(plainTextFile).dir + '/' + path.parse(plainTextFile).name + '_sign_messageKey' + '.txt', 'encryptedSign: ' + encryptedSign.toString('hex') + endOfLine + 'plainDigest: ' + plainDigest.toString('hex') + endOfLine + 'messageKey: ' + encryptionKey + endOfLine + 'encryptedMessageKey: ' + encryptedKeyAES.toString('hex'), function () {
+                                        console.log('Archivo con firma y key escrito');
+                                    });
+                                    event.sender.send('p6:fileSelector:plainTextSelected', {
+                                        fileName: plainTextFile,
+                                        encryptedFileName: encryptedFileName
+                                    });
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                                        title: 'Encryption done',
+                                        type: 'info',
+                                        message: 'The file was encrypted correctly',
+                                        buttons: ["Ok,thanks!"]
+                                    });
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(encryptedFileName);
+                                });
+                            });
+                        });
+                    } catch (e) {
+                        console.log(e);
+                        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the message with AES. \n Error: ' + e);
+                    }
                 });
-              });
             });
-          } catch (e) {
-            console.log(e);
-            __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the message with AES. \n Error: ' + e);
-          }
         });
-      });
     });
-  });
 });
 
 __WEBPACK_IMPORTED_MODULE_1_electron__["ipcMain"].on('p6:fileSelector:requestEncryptedFile', function (event, configurations) {
-  console.log('Event received to open a file selector and emmit the decrypted path', configurations);
-  readTextFile('Encrypted Text', function (err, encryptedTextFile, encryptedTextData) {
-    readRSAKeyFile('Public', function (err, publicKeyFile, publicKeyData) {
-      readRSAKeyFile('Private', function (err, privateKeyFile, privateKeyData) {
-        var parsedEncryptedFile = JSON.parse(encryptedTextData);
+    console.log('Event received to open a file selector and emmit the decrypted path', configurations);
+    readTextFile('Encrypted Text', function (err, encryptedTextFile, encryptedTextData) {
+        readRSAKeyFile('Public', function (err, publicKeyFile, publicKeyData) {
+            readRSAKeyFile('Private', function (err, privateKeyFile, privateKeyData) {
+                var parsedEncryptedFile = JSON.parse(encryptedTextData);
 
-        decryptAESKey(privateKeyData, new Buffer(parsedEncryptedFile.messageKey), function (decryptedAESKey) {
-          console.log('Decrypted Aes KEY - decryptedAESKey: ', decryptedAESKey);
+                decryptAESKey(privateKeyData, new Buffer(parsedEncryptedFile.messageKey), function (decryptedAESKey) {
+                    console.log('Decrypted Aes KEY - decryptedAESKey: ', decryptedAESKey);
 
-          decryptAES256(decryptedAESKey, parsedEncryptedFile.message, function (decryptedContents) {
-            console.log('El mensaje descifrado es - decryptedContents: ', decryptedContents);
+                    decryptAES256(decryptedAESKey, parsedEncryptedFile.message, function (decryptedContents) {
+                        console.log('El mensaje descifrado es - decryptedContents: ', decryptedContents);
 
-            decryptSign(parsedEncryptedFile.sign, publicKeyData, function (decryptedSign) {
-              console.log('La firma descifrada es - decryptedSign: ', decryptedSign.toString('hex'));
+                        decryptSign(parsedEncryptedFile.sign, publicKeyData, function (decryptedSign) {
+                            console.log('La firma descifrada es - decryptedSign: ', decryptedSign.toString('hex'));
 
-              var messageHash = crypto.createHash('sha512').update(decryptedContents).digest('hex');
-              console.log('El digesto del mensaje es - messageHash: ', messageHash);
+                            var messageHash = crypto.createHash('sha512').update(decryptedContents).digest('hex');
+                            console.log('El digesto del mensaje es - messageHash: ', messageHash);
 
-              if (decryptedSign.toString('hex') === messageHash) {
-                var decryptedAndSignedObj = {
-                  message: decryptedContents.trim(),
-                  sign: decryptedSign.toString('hex'),
-                  messageKey: decryptedAESKey.toString('hex')
-                };
-                var decryptedAndSignedObjMsg = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(decryptedAndSignedObj, null, 2);
-                var decryptedFileName = path.parse(encryptedTextFile).dir + '/' + path.parse(encryptedTextFile).name + '_decrypted' + '.txt';
-                writeFile(decryptedFileName, decryptedAndSignedObjMsg, function () {
-                  event.sender.send('p6:fileSelector:encryptedTextSelected', {
-                    fileName: encryptedTextFile,
-                    decryptedFileName: decryptedFileName
-                  });
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-                    title: 'Decryption done',
-                    type: 'info',
-                    message: 'The file was decrypted correctly',
-                    buttons: ["Ok,thanks!"]
-                  });
-                  __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
+                            if (decryptedSign.toString('hex') === messageHash) {
+                                var decryptedAndSignedObj = {
+                                    message: decryptedContents.replace(/(?:\r\n|\r|\n)/g, '\n'),
+                                    sign: decryptedSign.toString('hex'),
+                                    messageKey: decryptedAESKey.toString('hex')
+                                };
+                                var decryptedAndSignedObjMsg = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_json_stringify___default()(decryptedAndSignedObj, null, 2);
+                                var decryptedFileName = path.parse(encryptedTextFile).dir + '/' + path.parse(encryptedTextFile).name + '_decrypted' + '.txt';
+                                writeFile(decryptedFileName, decryptedContents + endOfLine + 'sign: ' + decryptedSign.toString('hex') + endOfLine + 'messageKey: ' + decryptedAESKey.toString('utf8'), function () {
+                                    event.sender.send('p6:fileSelector:encryptedTextSelected', {
+                                        fileName: encryptedTextFile,
+                                        decryptedFileName: decryptedFileName
+                                    });
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                                        title: 'Decryption done',
+                                        type: 'info',
+                                        message: 'The file was decrypted correctly',
+                                        buttons: ["Ok,thanks!"]
+                                    });
+                                    __WEBPACK_IMPORTED_MODULE_1_electron__["shell"].openItem(decryptedFileName);
+                                });
+                            } else {
+                                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
+                                    title: 'Decryption failed',
+                                    type: 'error',
+                                    message: 'The file signature doesnt match, be careful, there may be somebody pretending to be who you expect',
+                                    buttons: ["Ok,thanks!"]
+                                });
+                            }
+                        });
+                    });
                 });
-              } else {
-                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showMessageBox(mainWindow, {
-                  title: 'Decryption failed',
-                  type: 'error',
-                  message: 'The file signature doesnt match, be careful, there may be somebody pretending to be who you expect',
-                  buttons: ["Ok,thanks!"]
-                });
-              }
             });
-          });
         });
-      });
     });
-  });
 });
 
 function encryptAES256(encryptionKey, text, callback) {
-  var iv = crypto.randomBytes(16);
-  var cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(encryptionKey), iv);
-  var encrypted = cipher.update(text);
-  encrypted = Buffer.concat([encrypted, cipher.final()]);
-  var message = {
-    iv: iv.toString('hex'),
-    contents: encrypted.toString('hex')
-  };
-  callback(message);
+    var iv = crypto.randomBytes(16);
+    var cipher = crypto.createCipheriv('aes-256-cbc', new Buffer(encryptionKey), iv);
+    var encrypted = cipher.update(text);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    var message = {
+        iv: iv.toString('hex'),
+        contents: encrypted.toString('hex')
+    };
+    callback(message);
 }
 
 function decryptAES256(encryptionKey, encryptedMessage, callback) {
-  try {
-    var iv = new Buffer(encryptedMessage.iv, 'hex');
-    var encryptedText = new Buffer(encryptedMessage.contents, 'hex');
-    var decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(encryptionKey), iv);
-    var decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    callback(decrypted.toString('utf8'));
-  } catch (e) {
-    console.log(e);
-    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the message with AES. \n Error: ' + e);
-  }
+    try {
+        var iv = new Buffer(encryptedMessage.iv, 'hex');
+        var encryptedText = new Buffer(encryptedMessage.contents, 'hex');
+        var decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer(encryptionKey), iv);
+        var decrypted = decipher.update(encryptedText);
+        decrypted = Buffer.concat([decrypted, decipher.final()]);
+        callback(decrypted.toString('utf8'));
+    } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the message with AES. \n Error: ' + e);
+    }
 }
 
 function readTextFile(fileType, callback) {
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: 'Select the ' + fileType + ' text file',
-    filters: [{ name: 'Text files', extensions: ['txt'] }],
-    properties: ['openFile']
-  }, function (fileNames) {
-    if (fileNames) {
-      try {
-        fs.readFile(fileNames[0].toString(), function (err, plainTextData) {
-          if (err) {
-            callback(err, null, null);
-            throw err;
-          }
-          callback(null, fileNames[0].toString(), plainTextData);
-        });
-      } catch (e) {
-        console.log(e);
-        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to open the text file. \n Error: ' + e);
-      }
-    }
-  });
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: 'Select the ' + fileType + ' text file',
+        filters: [{ name: 'Text files', extensions: ['txt'] }],
+        properties: ['openFile']
+    }, function (fileNames) {
+        if (fileNames) {
+            try {
+                fs.readFile(fileNames[0].toString(), function (err, plainTextData) {
+                    if (err) {
+                        callback(err, null, null);
+                        throw err;
+                    }
+                    callback(null, fileNames[0].toString(), plainTextData);
+                });
+            } catch (e) {
+                console.log(e);
+                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to open the text file. \n Error: ' + e);
+            }
+        }
+    });
 }
 
 function readRSAKeyFile(keyType, callback) {
-  __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
-    title: 'Select the ' + keyType + ' key file',
-    filters: [{ name: 'PEM files', extensions: ['pem'] }],
-    properties: ['openFile']
-  }, function (key) {
-    if (key) {
-      try {
-        fs.readFile(key[0].toString(), function (err, keyData) {
-          if (err) {
-            callback(err, null, null);
-            throw err;
-          }
-          callback(null, key[0].toString(), keyData);
-        });
-      } catch (e) {
-        console.log(e);
-        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to open the key file. \n Error: ' + e);
-      }
-    }
-  });
+    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showOpenDialog(mainWindow, {
+        title: 'Select the ' + keyType + ' key file',
+        filters: [{ name: 'PEM files', extensions: ['pem'] }],
+        properties: ['openFile']
+    }, function (key) {
+        if (key) {
+            try {
+                fs.readFile(key[0].toString(), function (err, keyData) {
+                    if (err) {
+                        callback(err, null, null);
+                        throw err;
+                    }
+                    callback(null, key[0].toString(), keyData);
+                });
+            } catch (e) {
+                console.log(e);
+                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to open the key file. \n Error: ' + e);
+            }
+        }
+    });
 }
 
 function hashFile(filePath, privateKey, callback) {
-  try {
-    var digest = null;
-    var encryptedDigest = null;
-    var hash = crypto.createHash('sha512');
-    var input = fs.createReadStream(filePath);
-    input.on('readable', function () {
-      var data = input.read();
-      if (data) hash.update(data);else {
-        digest = hash.digest();
-        console.log('El digesto del mensaje es: ', digest.toString('hex'));
-      }
-    });
-    input.on('close', function () {
-      try {
-        encryptedDigest = crypto.privateEncrypt(privateKey, digest);
+    try {
+        var digest = null;
+        var encryptedDigest = null;
+        var hash = crypto.createHash('sha512');
+        var input = fs.createReadStream(filePath);
+        input.on('readable', function () {
+            var data = input.read();
+            if (data) hash.update(data);else {
+                digest = hash.digest();
+                console.log('El digesto del mensaje es: ', digest.toString('hex'));
+            }
+        });
+        input.on('close', function () {
+            try {
+                encryptedDigest = crypto.privateEncrypt(privateKey, digest);
 
-        callback(null, encryptedDigest, digest);
-      } catch (e) {
+                callback(null, encryptedDigest, digest);
+            } catch (e) {
+                console.log(e);
+                __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the digest with RSA Private key. \n Error: ' + e);
+            }
+        });
+    } catch (e) {
         console.log(e);
-        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the digest with RSA Private key. \n Error: ' + e);
-      }
-    });
-  } catch (e) {
-    console.log(e);
-    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to hash the data. \n Error: ' + e);
-  }
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to hash the data. \n Error: ' + e);
+    }
 }
 
 function decryptSign(sign, publicKey, callback) {
-  var decryptedSignAes = void 0;
+    var decryptedSignAes = void 0;
 
-  try {
-    decryptedSignAes = crypto.publicDecrypt(publicKey, new Buffer(sign));
-    callback(decryptedSignAes);
-  } catch (e) {
-    console.log(e);
-    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the AES key with private key RSA. \n Error: ' + e);
-  }
+    try {
+        decryptedSignAes = crypto.publicDecrypt({ key: publicKey, padding: crypto.constants.RSA_PKCS1_PADDING }, new Buffer(sign));
+        callback(decryptedSignAes);
+    } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the AES key with private key RSA.');
+    }
 }
 
 function encryptAESKey(publicKey, password, callback) {
-  var encryptedKeyAES = void 0;
+    var encryptedKeyAES = void 0;
 
-  try {
-    encryptedKeyAES = crypto.publicEncrypt(publicKey, new Buffer(password));
-    callback(encryptedKeyAES);
-  } catch (e) {
-    console.log(e);
-    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the AES key with public key RSA. \n Error: ' + e);
-  }
+    try {
+        encryptedKeyAES = crypto.publicEncrypt(publicKey, new Buffer(password));
+        callback(encryptedKeyAES);
+    } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to encrypt the AES key with public key RSA. \n Error: ' + e);
+    }
 }
 
 function decryptAESKey(privateKey, encryptedPassword, callback) {
-  var decryptedKeyAes = void 0;
+    var decryptedKeyAes = void 0;
 
-  try {
-    decryptedKeyAes = crypto.privateDecrypt(privateKey, new Buffer(encryptedPassword));
-    callback(decryptedKeyAes);
-  } catch (e) {
-    console.log(e);
-    __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the AES key with private key RSA. \n Error: ' + e);
-  }
+    try {
+        decryptedKeyAes = crypto.privateDecrypt(privateKey, new Buffer(encryptedPassword));
+        callback(decryptedKeyAes);
+    } catch (e) {
+        console.log(e);
+        __WEBPACK_IMPORTED_MODULE_1_electron__["dialog"].showErrorBox('Something bad happened', 'There was an error trying to decrypt the AES key with private key RSA.');
+    }
 }
 
 function writeFile(filePath, data, callback) {
-  console.log('filePath - filePath: ', filePath);
-  console.log('data to write - data: ', data);
-  fs.writeFile(filePath, data, 'utf8', function (err) {
-    if (err) {
-      throw err;
-    }
-    callback();
-  });
+    console.log('filePath - filePath: ', filePath);
+    console.log('data to write - data: ', data);
+    fs.writeFile(filePath, data, 'utf8', function (err) {
+        if (err) {
+            throw err;
+        }
+        callback();
+    });
 }
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src/main"))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src\\main"))
 
 /***/ }),
 /* 16 */
@@ -8025,13 +8029,13 @@ function map_obj(obj, fn){
   }, {})
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, "node_modules/7zip"))
+/* WEBPACK VAR INJECTION */}.call(exports, "node_modules\\7zip"))
 
 /***/ }),
 /* 47 */
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["7zip@0.0.6","/home/bramosrys/Documents/Github/ESCOM-Cryptography/CryptoCOM"]],"_development":true,"_from":"7zip@0.0.6","_id":"7zip@0.0.6","_inBundle":false,"_integrity":"sha1-nK+xca+CMpSQNTtIFvAzR6oVCjA=","_location":"/7zip","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"7zip@0.0.6","name":"7zip","escapedName":"7zip","rawSpec":"0.0.6","saveSpec":null,"fetchSpec":"0.0.6"},"_requiredBy":["/electron-devtools-installer"],"_resolved":"https://registry.npmjs.org/7zip/-/7zip-0.0.6.tgz","_spec":"0.0.6","_where":"/home/bramosrys/Documents/Github/ESCOM-Cryptography/CryptoCOM","bin":{"7z":"7zip-lite/7z.exe"},"bugs":{"url":"https://github.com/fritx/win-7zip/issues"},"description":"7zip Windows Package via Node.js","homepage":"https://github.com/fritx/win-7zip#readme","keywords":["7z","7zip","7-zip","windows","install"],"license":"GNU LGPL","main":"index.js","name":"7zip","repository":{"type":"git","url":"git+ssh://git@github.com/fritx/win-7zip.git"},"scripts":{"test":"mocha"},"version":"0.0.6"}
+module.exports = {"_args":[["7zip@0.0.6","D:\\Windows\\Documents\\GitHub\\ESCOM-Cryptography\\CryptoCOM"]],"_development":true,"_from":"7zip@0.0.6","_id":"7zip@0.0.6","_inBundle":false,"_integrity":"sha1-nK+xca+CMpSQNTtIFvAzR6oVCjA=","_location":"/7zip","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"7zip@0.0.6","name":"7zip","escapedName":"7zip","rawSpec":"0.0.6","saveSpec":null,"fetchSpec":"0.0.6"},"_requiredBy":["/electron-devtools-installer"],"_resolved":"https://registry.npmjs.org/7zip/-/7zip-0.0.6.tgz","_spec":"0.0.6","_where":"D:\\Windows\\Documents\\GitHub\\ESCOM-Cryptography\\CryptoCOM","bin":{"7z":"7zip-lite/7z.exe"},"bugs":{"url":"https://github.com/fritx/win-7zip/issues"},"description":"7zip Windows Package via Node.js","homepage":"https://github.com/fritx/win-7zip#readme","keywords":["7z","7zip","7-zip","windows","install"],"license":"GNU LGPL","main":"index.js","name":"7zip","repository":{"type":"git","url":"git+ssh://git@github.com/fritx/win-7zip.git"},"scripts":{"test":"mocha"},"version":"0.0.6"}
 
 /***/ }),
 /* 48 */
@@ -8293,6 +8297,12 @@ if ('Set' in global) {
 	module.exports = uniqNoSet;
 }
 
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+module.exports = require("os");
 
 /***/ })
 /******/ ]);
