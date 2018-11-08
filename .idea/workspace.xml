@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f38bf1d8-0084-45e8-956b-1fcd0e979ddb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/Text files/himno_encrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/Text files/himno_encrypted.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/Text files/himno_encrypted_decrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/Text files/himno_encrypted_decrypted.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/dist/electron/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/dist/electron/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CryptoCOM/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/src/main/index.js" afterDir="false" />
-    </list>
+    <list default="true" id="f38bf1d8-0084-45e8-956b-1fcd0e979ddb" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -60,7 +54,7 @@
     <session id="-1766434421">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
@@ -77,7 +71,7 @@
           <entry key="js" value="24" />
           <entry key="json" value="5" />
           <entry key="ts" value="1" />
-          <entry key="vue" value="31" />
+          <entry key="vue" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -87,7 +81,7 @@
           <entry key="JSON" value="5" />
           <entry key="JavaScript" value="24" />
           <entry key="TypeScript" value="1" />
-          <entry key="Vue.js" value="31" />
+          <entry key="Vue.js" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -136,21 +130,21 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/my-public-key-app/src/components/MyCV.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="851" column="5" lean-forward="true" selection-start-line="851" selection-start-column="5" selection-end-line="851" selection-end-column="5" />
+            <state relative-caret-position="23">
+              <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Moderns/AESRSADigitalSign.vue">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/my-public-key-app/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
+            <state relative-caret-position="238">
+              <caret line="53" column="47" lean-forward="true" selection-start-line="53" selection-start-column="47" selection-end-line="53" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -279,62 +273,20 @@
             <path>
               <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
+              <item name="my-public-key-app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
+              <item name="my-public-key-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
+              <item name="my-public-key-app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="renderer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="renderer" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="renderer" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Ciphers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="renderer" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Ciphers" type="462c0819:PsiDirectoryNode" />
-              <item name="Moderns" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="renderer" type="462c0819:PsiDirectoryNode" />
-              <item name="router" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -418,13 +370,12 @@
       <workItem from="1540386177055" duration="35000" />
       <workItem from="1540388134816" duration="42000" />
       <workItem from="1540557283583" duration="34000" />
-      <workItem from="1540772552245" duration="14369000" />
-      <workItem from="1541452404884" duration="7144000" />
+      <workItem from="1540772552245" duration="14528000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89818000" />
+    <option name="totallyTimeSpent" value="82833000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -438,7 +389,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19233312" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19293621" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -594,13 +545,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/my-public-key-app/src/components/MyCV.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/my-public-key-app/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -622,13 +566,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my-public-key-app/src/App.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="53" column="44" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -670,6 +607,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="682" column="38" selection-start-line="682" selection-start-column="38" selection-end-line="682" selection-end-column="38" />
+          <folding>
+            <element signature="e#1387#2852#0" />
+            <element signature="e#2934#4561#0" />
+            <element signature="e#4671#6323#0" />
+            <element signature="e#6402#8142#0" />
+            <element signature="e#8253#10797#0" />
+            <element signature="e#10879#15497#0" />
+            <element signature="e#15655#17363#0" />
+            <element signature="e#17446#19313#0" />
+            <element signature="e#19394#22400#0" />
+            <element signature="e#22481#25484#0" />
+            <element signature="n#!!block;n#readTextFile#0" />
+            <element signature="n#!!block;n#readRSAKeyFile#0" />
+            <element signature="n#!!block;n#encryptAESKey#0" />
+            <element signature="n#!!block;n#writeFile#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -679,15 +639,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Moderns/AESRSADigitalSign.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="71" column="37" selection-start-line="71" selection-start-column="37" selection-end-line="71" selection-end-column="37" />
+        <state relative-caret-position="427">
+          <caret line="82" column="74" selection-start-line="82" selection-start-column="37" selection-end-line="82" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
+    <entry file="file://$PROJECT_DIR$/my-public-key-app/src/components/MyCV.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="851" column="5" lean-forward="true" selection-start-line="851" selection-start-column="5" selection-end-line="851" selection-end-column="5" />
+        <state relative-caret-position="23">
+          <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my-public-key-app/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="53" column="47" lean-forward="true" selection-start-line="53" selection-start-column="47" selection-end-line="53" selection-end-column="47" />
         </state>
       </provider>
     </entry>
