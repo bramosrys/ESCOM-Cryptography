@@ -31,7 +31,7 @@ let webConfig = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        include: [ path.resolve(__dirname, '../src/renderer') ],
+        include: [path.resolve(__dirname, '../src/renderer')],
         exclude: /node_modules/
       },
       {
@@ -65,6 +65,13 @@ let webConfig = {
             limit: 10000,
             name: 'fonts/[name].[ext]'
           }
+        }
+      },
+      {
+        test: /\.(pem)$/,
+        loader: 'file-loader',
+        options: {
+          name: `files/[name].[ext]`
         }
       }
     ]
