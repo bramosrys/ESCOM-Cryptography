@@ -40,22 +40,22 @@
     components: {MyScholarCard, MyCV, MyPublicData, MyRSAKey, MycvDownload},
     data () {
       return {
-        toolbarTitle: 'Brayan R R - My Public RSA Key',
+        toolbarTitle: 'Sairi Milla - My Public RSA Key',
         myIntro: 'Computer Systems Engineer Student from Escuela Superior de Computo - IPN',
-        myJobDescription: 'Business Analyst & API Designer at GFT Mexico',
-        dirName: 'https://drive.google.com/uc?export=download&id=1zl5v5DAOdK0VqPhLOMfq91w3r8Ne6ow6',
-        cvLink: 'https://1drv.ms/b/s!AmlBZJuJoyUohcpw1E4NaAodFb-K4g',
+        myJobDescription: 'Backend developer at Weex.',
+        dirName: 'https://drive.google.com/uc?export=download&id=1WrcZ8nTQ0csYRViEdpb3dzWS15vgsv6p',
+        cvLink: '',
         actualJob: {
-          title: 'Programmer Analyst',
-          description: 'Functional requirements analysis for service delivery (PaaS).',
-          start: '2018-11-01',
+          title: 'Backend Developer',
+          description: 'Development of RESTFUL services for consumption by Weex applications',
+          start: '2017-12-04',
           end: ''
         },
         previousJob: {
-          title: 'Technology Integration Analyst',
-          description: 'Implementation of new technologies and improvements for internal processes and partners.',
-          start: '2017-12-04',
-          end: '2018-10-31'
+          title: '',
+          description: '',
+          start: '',
+          end: ''
         },
         actualSchool: {
           title: 'Escuela Superior de Cómputo',
@@ -64,8 +64,8 @@
           end: ''
         },
         previousSchool: {
-          title: 'CECYT No.2 Miguel Bernard P.',
-          description: 'Metallurgic Technician.',
+          title: 'CECYT No.9 Juan de Dios Bátiz.',
+          description: 'Programming.',
           start: '2011-08-20',
           end: '2014-08-18'
         }
