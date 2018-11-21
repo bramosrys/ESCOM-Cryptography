@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "firebase": "^5.5.8",
+    "lodash": "^4.17.11",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.0"

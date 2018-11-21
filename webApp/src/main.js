@@ -6,9 +6,11 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VeeValidate from 'vee-validate'
+import firebase from 'firebase'
 
 Vue.use(Vuetify)
 Vue.use(VeeValidate)
+Vue.use(firebase)
 
 Vue.config.productionTip = false
 

@@ -26,7 +26,8 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field label="Repetir contraseña*" v-model="confirmPassword"
-                                v-validate="'required|alpha_num|min:8|max:32|is:password'" data-vv-name="confirmPassword"
+                                v-validate="{required:true,alpha_num:true,min:8,max:32,is:password}"
+                                data-vv-name="confirmPassword"
                                 :error-messages="errors.collect('confirmPassword')"
                                 :append-icon="hiddenPassword ? 'visibility' : 'visibility_off'"
                                 @click:append="() => (hiddenPassword = !hiddenPassword)"
@@ -50,7 +51,10 @@
 
 <script>
   import swal from 'sweetalert2'
-  // import _ from 'lodash'
+  import firebase from 'firebase'
+  import _ from 'lodash'
+
+  var crypto = require('crypto')
   export default {
     $_veeValidate: {
       validator: 'new'
@@ -109,48 +113,47 @@
               'info'
             )
           } else {
-            /* let user = {
-              employeeNumber: this.employeeNumber,
-              name: this.name,
-              genre: this.genre,
-              userRole: this.userRole,
-              birthDate: this.birthDate,
-              pin: this.pin,
-              managerUser: this.manager
-            }
-            this.$store.dispatch('users/createUser', user).then(response => {
-              if (response.requestStatus === true) {
+            var userList = firebase.database().ref('users').orderByChild('email')
+            userList.once('value').then((snapshot) => {
+              var data = snapshot.val()
+              var emailExist = _.indexOf(_.map(data, 'email'), this.email)
+              if (emailExist >= 0) {
                 swal(
-                  'Ok',
-                  response.message,
-                  'success'
+                  'Atencion',
+                  'El email ya está en uso',
+                  'info'
                 )
-                this.clearData()
-                this.changeModalProp()
               } else {
-                swal(
-                  'Atención',
-                  response.message,
-                  'warning'
-                )
+                var hash = crypto.createHash('sha256').update(this.password).digest('base64')
+                console.log('El pass sin hash es:', this.password)
+                console.log('La hash es:', hash)
+                var dbKey = firebase.database().ref().child('users').push().key
+                var newUser = {}
+                newUser['users/' + dbKey] = {email: this.email, password: this.password}
+                firebase.database().ref().update(newUser).then((data) => {
+                  swal(
+                    'OK',
+                    'El registro fue exitoso',
+                    'success'
+                  )
+                }).catch(err => {
+                  console.log(err)
+                  swal(
+                    'Error',
+                    'Ocurrió un error al procesar tu respuesta.',
+                    'error'
+                  )
+                })
               }
-            }) */
+            }).catch(error => {
+              console.log(error)
+            })
           }
         })
       }
     },
     mounted () {
       this.$validator.localize('es', this.dictionary)
-    },
-    computed: {
-      userRoles () {
-        let userRoles = this.$store.getters['users/roles']
-        if (userRoles === null || userRoles === undefined) {
-          return []
-        } else {
-          return userRoles
-        }
-      }
     }
   }
 </script>
