@@ -34,9 +34,9 @@
   import swal from 'sweetalert2'
   import firebase from 'firebase'
   import _ from 'lodash'
-  import nodemailer from 'nodemailer'
   import randomstring from 'randomstring'
   import crypto from 'crypto'
+  // import mailjet from 'node-mailjet'
 
   export default {
     $_veeValidate: {
@@ -155,26 +155,6 @@
                     }).then(updatedNode => {
                     })
                   })
-                })
-                var transporter = nodemailer.createTransport({
-                  service: 'gmail',
-                  auth: {
-                    user: 'bramosrys@gmail.com',
-                    password: 'J0b&Pr1v@t30710'
-                  }
-                })
-                const mailOptions = {
-                  from: 'bramosrys@gmail.com', // sender address
-                  to: 'fania.ps25@gmail.com', // list of receivers
-                  subject: 'Te amo <3', // Subject line
-                  html: '<p>Haz click aquí</p>'// plain text body
-                }
-                transporter.sendMail(mailOptions, (err, info) => {
-                  if (err) {
-                    console.log(err)
-                  } else {
-                    console.log(info)
-                  }
                 })
               }
             })
