@@ -129,7 +129,13 @@
                 console.log('La hash es:', hash)
                 var dbKey = firebase.database().ref().child('users').push().key
                 var newUser = {}
-                newUser['users/' + dbKey] = {email: this.email, password: this.password}
+                newUser['users/' + dbKey] = {
+                  email: this.email,
+                  password: hash,
+                  blockedStatus: {
+                    resetHash: '' // randomstring.generate({length: 32, charset: 'alphabetic'})
+                  }
+                }
                 firebase.database().ref().update(newUser).then((data) => {
                   swal(
                     'OK',
