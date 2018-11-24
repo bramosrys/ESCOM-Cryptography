@@ -11,6 +11,9 @@
     <v-layout row>
       <reset-password-form :show="showResetForm" @changeModalProp="changeResetPasswordProp"></reset-password-form>
     </v-layout>
+    <v-layout row>
+      <reset-password-page :show="showResetPasswordPage" @changeModalProp="changeResetPasswordPage"></reset-password-page>
+    </v-layout>
   </v-app>
 </template>
 
@@ -20,18 +23,21 @@
   import AuthForm from '@/components/auth/components/form'
   import RegisterForm from '@/components/auth/components/RegisterForm'
   import ResetPasswordForm from '@/components/auth/components/ResetPassword'
+  import ResetPasswordPage from '@/components/auth/components/ResetPasswordPage'
 
   export default {
     components: {
       AuthForm,
       AuthNavbar,
       RegisterForm,
-      ResetPasswordForm
+      ResetPasswordForm,
+      ResetPasswordPage
     },
     data: () => ({
       drawer: null,
       showCreateForm: false,
-      showResetForm: false
+      showResetForm: false,
+      showResetPasswordPage: false
     }),
     methods: {
       changeCreateEmployeeProp () {
@@ -39,6 +45,9 @@
       },
       changeResetPasswordProp () {
         this.showResetForm = !this.showResetForm
+      },
+      changeResetPasswordPage () {
+        this.showResetPasswordPage = !this.showResetPasswordPage
       }
     },
     props: {

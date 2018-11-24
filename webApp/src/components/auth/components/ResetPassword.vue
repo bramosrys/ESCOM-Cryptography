@@ -153,6 +153,11 @@
                         resetHash: randomToken
                       }
                     }).then(updatedNode => {
+                      swal(
+                        'OK',
+                        'If the email address ' + this.email + ' matches any of our registered users, you will be receiving an email to reset your password',
+                        'info'
+                      )
                     })
                   })
                 })
