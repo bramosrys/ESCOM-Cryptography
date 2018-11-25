@@ -42,7 +42,7 @@
     $_veeValidate: {
       validator: 'new'
     },
-    props: ['show'],
+    props: ['show', 'serverIP'],
     created () {
     },
     data () {
@@ -60,15 +60,15 @@
               email: 'Invalid email format'
             },
             password: {
-              required: 'La contraseña es requerida',
+              required: 'The password is required',
               alpha_num: 'Solo caracteres alfanúmericos',
-              min: 'La longitud mínima del password es 8 caracteres'
+              min: 'Mininum password lenght is 8 chars'
             },
             confirmPassword: {
-              required: 'La confirmación de la contraseña es requerida',
+              required: 'The password confirmation is required',
               alpha_num: 'Solo caracteres alfanúmericos',
-              min: 'La longitud mínima del password es 8 caracteres',
-              is: 'Las contraseñas no coinciden'
+              min: 'Mininum password lenght is 8 chars',
+              is: `Passwords doesn't match`
             }
           }
         }
@@ -91,8 +91,8 @@
           if (!validationResult) {
             // Formulario no valido
             swal(
-              'Atención',
-              'Algunos campos no son correctos, intentalo de nuevo',
+              'Warning',
+              'Missing fields',
               'info'
             )
           } else {
@@ -129,40 +129,63 @@
               'info'
             )
           } else {
-            var userList = firebase.database().ref('users').orderByChild('email')
-            userList.once('value').then((snapshot) => {
-              var data = snapshot.val()
-              var emails = _.map(data, 'email')
-              var emailExist = _.indexOf(emails, this.email)
-              if (emailExist === -1) {
-                // Don't send the email but warn about the possibility
-                swal(
-                  'OK',
-                  'If the email address ' + this.email + ' matches any of our registered users, you will be receiving an email to reset your password',
-                  'info'
-                )
-              } else {
-                // Send the email with the reset link
-                let randomToken = randomstring.generate({length: 32, charset: 'alphabetic'})
-                var dbKey = firebase.database().ref('users').orderByChild('email').equalTo(this.email).once('value')
-                dbKey.then(foundNode => {
-                  foundNode.forEach(node => {
-                    console.log(node.val())
-                    firebase.database().ref('users').child(node.key).update({
-                      blockedStatus: {
-                        resetHash: randomToken
-                      }
-                    }).then(updatedNode => {
-                      swal(
-                        'OK',
-                        'If the email address ' + this.email + ' matches any of our registered users, you will be receiving an email to reset your password',
-                        'info'
-                      )
+            console.log('server ip', this.serverIP)
+            if (!this.serverIP) {
+              swal(
+                'Error',
+                'Please, configure the email server address first',
+                'error'
+              )
+            } else {
+              var userList = firebase.database().ref('users').orderByChild('email')
+              userList.once('value').then((snapshot) => {
+                var data = snapshot.val()
+                var emails = _.map(data, 'email')
+                var emailExist = _.indexOf(emails, this.email)
+                if (emailExist === -1) {
+                  // Don't send the email but warn about the possibility
+                  swal(
+                    'OK',
+                    'If the email address ' + this.email + ' matches any of our registered users, you will be receiving an email to reset your password',
+                    'info'
+                  )
+                } else {
+                  // Send the email with the reset link
+                  let randomToken = randomstring.generate({length: 32, charset: 'alphabetic'})
+                  var dbKey = firebase.database().ref('users').orderByChild('email').equalTo(this.email).once('value')
+                  dbKey.then(foundNode => {
+                    foundNode.forEach(node => {
+                      console.log(node.val())
+                      firebase.database().ref('users').child(node.key).update({
+                        blockedStatus: {
+                          resetHash: randomToken
+                        }
+                      }).then(updatedNode => {
+                        this.$http.post(this.serverIP, {
+                          to: this.email,
+                          from: 'cryptocom.delivery@gmail.com',
+                          subject: 'Password reset',
+                          contents: `Dear Mr/Mrs, we've received an order to reset your password, if you made the request click the following link to continue resetting your password, if you don't recognize this request please reach at so we can secure your account.`,
+                          link: 'http://192.168.1.82:8080/#/?showResetPage=true&email=' + this.email + '&secK=' + randomToken
+                        }).then(response => {
+                          swal(
+                            'OK',
+                            'If the email address ' + this.email + ' matches any of our registered users, you will be receiving an email to reset your password',
+                            'info'
+                          )
+                        }).catch(error => {
+                          swal(
+                            'Error',
+                            error.message,
+                            'error'
+                          )
+                        })
+                      })
                     })
                   })
-                })
-              }
-            })
+                }
+              })
+            }
           }
         })
       }

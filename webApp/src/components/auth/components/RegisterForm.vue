@@ -3,20 +3,20 @@
     <v-dialog v-model="show" persistent max-width="850px">
       <v-card>
         <v-toolbar card dark color="primary">
-          <v-toolbar-title>Registrar Usuario</v-toolbar-title>
+          <v-toolbar-title>Register user</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-form>
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-text-field label="Correo*" v-model="email"
+                  <v-text-field label="Email*" v-model="email"
                                 v-validate="'required|email'" data-vv-name="email"
                                 :error-messages="errors.collect('email')">
                   </v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field label="Contraseña*" v-model="password"
+                  <v-text-field label="Password*" v-model="password"
                                 v-validate="'required|alpha_num|min:8|max:32'" data-vv-name="password"
                                 :error-messages="errors.collect('password')"
                                 :append-icon="hiddenPassword ? 'visibility' : 'visibility_off'"
@@ -25,7 +25,7 @@
                   </v-text-field>
                 </v-flex>
                 <v-flex xs12>
-                  <v-text-field label="Repetir contraseña*" v-model="confirmPassword"
+                  <v-text-field label="Repeat password*" v-model="confirmPassword"
                                 v-validate="{required:true,alpha_num:true,min:8,max:32,is:password}"
                                 data-vv-name="confirmPassword"
                                 :error-messages="errors.collect('confirmPassword')"
@@ -77,15 +77,15 @@
               email: 'El email ingresado no es válido'
             },
             password: {
-              required: 'La contraseña es requerida',
+              required: 'The password is required',
               alpha_num: 'Solo caracteres alfanúmericos',
-              min: 'La longitud mínima del password es 8 caracteres'
+              min: 'Mininum password lenght is 8 chars'
             },
             confirmPassword: {
-              required: 'La confirmación de la contraseña es requerida',
+              required: 'The password confirmation is required',
               alpha_num: 'Solo caracteres alfanúmericos',
-              min: 'La longitud mínima del password es 8 caracteres',
-              is: 'Las contraseñas no coinciden'
+              min: 'Mininum password lenght is 8 chars',
+              is: `Passwords doesn't match`
             }
           }
         }
@@ -108,8 +108,8 @@
           if (!validationResult) {
             // Formulario no valido
             swal(
-              'Atención',
-              'Algunos campos no son correctos, intentalo de nuevo',
+              'Warning',
+              'Missing fields',
               'info'
             )
           } else {

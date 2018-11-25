@@ -10,8 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
-const HOST = process.env.HOST
-const PORT = 3000
+const HOST = '0.0.0.0'
+const PORT = 8080
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -75,9 +75,9 @@ module.exports = new Promise((resolve, reject) => {
       reject(err)
     } else {
       // publish the new Port, necessary for e2e tests
-      process.env.PORT = 3000
+      process.env.PORT = 8080
       // add port to devServer config
-      devWebpackConfig.devServer.port = 3000
+      devWebpackConfig.devServer.port = 8080
 
       // Add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({

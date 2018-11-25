@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f38bf1d8-0084-45e8-956b-1fcd0e979ddb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/build/webpack.dev.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/build/webpack.dev.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/config/dev.env.js" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/config/dev.env.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/config/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/Auth.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/Auth.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webApp/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/main.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,20 +27,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webApp/src/App.vue">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="13" column="15" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
+            <state relative-caret-position="161">
+              <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
+        <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/Auth.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="42" />
+            <state relative-caret-position="299">
+              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -40,29 +48,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/form.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="81" column="12" lean-forward="true" selection-start-line="81" selection-start-column="12" selection-end-line="111" selection-end-column="14" />
+            <state relative-caret-position="115">
+              <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue">
+        <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="159" column="23" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
-              <folding>
-                <element signature="e#1193#1223#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="140" column="26" lean-forward="true" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
+            <state relative-caret-position="184">
+              <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
               <folding>
                 <element signature="e#2447#2477#0" expanded="true" />
               </folding>
@@ -91,6 +87,19 @@
       <find>|</find>
       <find>tile</find>
       <find>VeeValidate</find>
+      <find>La longitud mínima del password es 8 caracteres</find>
+      <find>Las contraseñas no coinciden</find>
+      <find>'Passwords doesn't match'</find>
+      <find>'La contraseña es requerida'</find>
+      <find>Atención</find>
+      <find>Bienvenido</find>
+      <find>Es un gusto tenerlo de nuevo por acá</find>
+      <find>Credenciales inválidas, ingresa nuevamente tus credenciales</find>
+      <find>Algunos campos no son correctos, intentalo de nuevo</find>
+      <find>Debes ingresar un email válido</find>
+      <find>Yo</find>
+      <find>Debes ingresar la contraseña</find>
+      <find>La confirmación de la contraseña es requerida</find>
     </findStrings>
     <replaceStrings>
       <replace>additiveInverse</replace>
@@ -100,6 +109,19 @@
       <replace>multiplicativeAdditiveInverse</replace>
       <replace>multiplicativeInverse</replace>
       <replace>availableMultiplicativeInverse</replace>
+      <replace>Mininum password lenght is 8 chars</replace>
+      <replace>Passwords doesn't match</replace>
+      <replace>`Passwords doesn't match`</replace>
+      <replace>'The password is required'</replace>
+      <replace>Warning</replace>
+      <replace>Welcome</replace>
+      <replace>Nice to say hi today :)</replace>
+      <replace>Nice7</replace>
+      <replace>Wrong credentials</replace>
+      <replace>Missing fields</replace>
+      <replace>The email is required</replace>
+      <replace>The password is required</replace>
+      <replace>The password confirmation is required</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -131,17 +153,22 @@
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/router/index.js" />
         <option value="$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Moderns/AESRSADigitalSign.vue" />
         <option value="$PROJECT_DIR$/CryptoCOM/src/main/index.js" />
-        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/navbar.vue" />
         <option value="$PROJECT_DIR$/webApp/index.html" />
         <option value="$PROJECT_DIR$/webApp/src/App.vue" />
-        <option value="$PROJECT_DIR$/webApp/src/main.js" />
-        <option value="$PROJECT_DIR$/webApp/config/index.js" />
-        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue" />
-        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/form.vue" />
         <option value="$PROJECT_DIR$/webApp/src/router/index.js" />
+        <option value="$PROJECT_DIR$/webApp/config/dev.env.js" />
+        <option value="$PROJECT_DIR$/emailServer/config/routes.js" />
+        <option value="$PROJECT_DIR$/emailServer/api/controllers/EmailServicesController.js" />
+        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/navbar.vue" />
+        <option value="$PROJECT_DIR$/webApp/src/main.js" />
         <option value="$PROJECT_DIR$/webApp/src/components/auth/Auth.vue" />
-        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue" />
+        <option value="$PROJECT_DIR$/emailServer/config/security.js" />
+        <option value="$PROJECT_DIR$/webApp/config/index.js" />
+        <option value="$PROJECT_DIR$/webApp/build/webpack.dev.conf.js" />
         <option value="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue" />
+        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue" />
+        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/form.vue" />
+        <option value="$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue" />
       </list>
     </option>
   </component>
@@ -152,9 +179,10 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="26" />
-    <option name="width" value="1920" />
-    <option name="height" value="1053" />
+    <option name="x" value="960" />
+    <option name="y" value="27" />
+    <option name="width" value="960" />
+    <option name="height" value="1052" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -203,24 +231,6 @@
             <path>
               <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="CryptoCOM" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
               <item name="webApp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -264,13 +274,6 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="auth" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESCOM-Cryptography" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESCOM-Cryptography" type="462c0819:PsiDirectoryNode" />
-              <item name="webApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="router" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -364,7 +367,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104948000" />
+    <option name="totallyTimeSpent" value="112790000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -379,7 +382,7 @@
     <frame x="0" y="27" width="1920" height="1052" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19240907" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19240907" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -391,7 +394,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.50438595" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.50438595" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -422,48 +425,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/CesarCipher.vue" />
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineEuclid.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2139" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/CaesarCipher.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2625" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Appendix/AppendixCipher.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/Ciphers/Clasics/AffineCipher.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="25" column="37" selection-start-line="11" selection-start-column="7" selection-end-line="25" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/Arrows.bmp" />
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/node_modules/bmp-js/index.js" />
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/components/WelcomeView.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="31" column="4" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="33" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/assets/icons/icon.ico">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/assets/icons/icon.icns">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MyPublicKeyPage/package.json" />
-    <entry file="file://$PROJECT_DIR$/my-public-key-app/config/index.js" />
     <entry file="file://$PROJECT_DIR$/my-public-key-app/src/components/HelloWorld.vue" />
     <entry file="file://$PROJECT_DIR$/my-public-key-app/.eslintrc.js" />
     <entry file="file://$PROJECT_DIR$/CryptoCOM/src/renderer/main.js">
@@ -546,13 +507,6 @@
     <entry file="file://$PROJECT_DIR$/my-public-key-app/src/components/MyCV.vue" />
     <entry file="file://$PROJECT_DIR$/my-public-key-app/src/App.vue" />
     <entry file="file://$PROJECT_DIR$/webApp/src/components/HelloWorld.vue" />
-    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/navbar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webApp/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -560,45 +514,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/config/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webApp/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="30" column="27" lean-forward="true" selection-start-line="30" selection-start-column="27" selection-end-line="30" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/Auth.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-161">
-          <caret line="14" column="98" selection-start-line="14" selection-start-column="98" selection-end-line="14" selection-end-column="98" />
-          <folding>
-            <element signature="e#589#649#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#140#161#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -612,12 +531,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue">
+    <entry file="file://$PROJECT_DIR$/CryptoCOM/src/main/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2254">
-          <caret line="13" column="57" selection-start-line="13" selection-start-column="57" selection-end-line="13" selection-end-column="57" />
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailServer/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="634">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailServer/config/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailServer/api/controllers/EmailServicesController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
           <folding>
-            <element signature="e#2447#2477#0" expanded="true" />
+            <element signature="n#style#0;n#h1#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -625,34 +565,124 @@
     <entry file="file://$PROJECT_DIR$/webApp/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
-          <caret line="13" column="15" selection-start-line="13" selection-start-column="15" selection-end-line="13" selection-end-column="15" />
+          <caret line="13" column="15" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/form.vue">
+    <entry file="file://$PROJECT_DIR$/emailServer/config/http.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailServer/config/i18n.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-822" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/build/vue-loader.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/build/webpack.base.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1518" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/build/webpack.dev.conf.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/config/test.env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/config/dev.env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/config/prod.env.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
-          <caret line="81" column="12" lean-forward="true" selection-start-line="81" selection-start-column="12" selection-end-line="111" selection-end-column="14" />
+          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#140#161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailServer/config/security.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/navbar.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="31" column="33" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="742">
-          <caret line="159" column="23" selection-start-line="159" selection-start-column="23" selection-end-line="159" selection-end-column="23" />
+        <state relative-caret-position="245">
+          <caret line="70" column="43" lean-forward="true" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
           <folding>
             <element signature="e#1193#1223#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue">
+    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/form.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="140" column="26" lean-forward="true" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
+        <state relative-caret-position="115">
+          <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="25" column="25" lean-forward="true" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
           <folding>
             <element signature="e#2447#2477#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/Auth.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPasswordPage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="21" lean-forward="true" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
         </state>
       </provider>
     </entry>

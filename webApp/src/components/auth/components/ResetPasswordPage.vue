@@ -3,7 +3,7 @@
     <v-dialog v-model="show" persistent max-width="850px">
       <v-card>
         <v-toolbar card dark color="primary">
-          <v-toolbar-title>Please write down your new password</v-toolbar-title>
+          <v-toolbar-title>Please write your new password</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-form>
@@ -67,15 +67,15 @@
         dictionary: {
           custom: {
             password: {
-              required: 'La contraseña es requerida',
+              required: 'The password is required',
               alpha_num: 'Solo caracteres alfanúmericos',
-              min: 'La longitud mínima del password es 8 caracteres'
+              min: 'Mininum password lenght is 8 chars'
             },
             confirmPassword: {
-              required: 'La confirmación de la contraseña es requerida',
+              required: 'The password confirmation is required',
               alpha_num: 'Solo caracteres alfanúmericos',
-              min: 'La longitud mínima del password es 8 caracteres',
-              is: 'Las contraseñas no coinciden'
+              min: 'Mininum password lenght is 8 chars',
+              is: `Passwords doesn't match`
             }
           }
         }
@@ -134,7 +134,7 @@
                 } else {
                   var dbKey = firebase.database().ref('users').orderByChild('email').equalTo(this.email).once('value')
                   dbKey.then(node => {
-                    node.forEach(node=>{
+                    node.forEach(node => {
                       firebase.database().ref('users').child(node.key).update({
                         blockedStatus: {
                           resetHash: ''
@@ -148,7 +148,6 @@
                         )
                       })
                     })
-
                   })
                 }
               }

@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md4>
         <v-card class="elevation-12">
           <v-toolbar color="primary" card dark>
-            <v-toolbar-title>Bienvenido</v-toolbar-title>
+            <v-toolbar-title>Welcome</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-form>
@@ -13,7 +13,7 @@
                             data-vv-name="username"
                             :error-messages="errors.collect('username')">
               </v-text-field>
-              <v-text-field label="Contraseña" v-model="password"
+              <v-text-field label="Password" v-model="password"
                             :append-icon="hiddenPassword ? 'visibility' : 'visibility_off'"
                             @click:append="() => (hiddenPassword = !hiddenPassword)"
                             :type="hiddenPassword ? 'password' : 'text'"
@@ -27,7 +27,7 @@
           <v-card-actions>
             <v-btn flat color="primary" @click="resetPassword">Forgot your password?</v-btn>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="login">Iniciar</v-btn>
+            <v-btn flat color="primary" @click="login">Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -58,11 +58,11 @@
           },
           custom: {
             username: {
-              required: 'Debes ingresar un email válido',
+              required: 'The email is required',
               alpha: 'Solo caracteres alfanumericos'
             },
             password: {
-              required: 'Debes ingresar la contraseña'
+              required: 'The password is required'
             }
           }
         }
@@ -74,8 +74,8 @@
           if (!result) {
             // Formulario no valido
             swal(
-              'Atención',
-              'Algunos campos no son correctos, intentalo de nuevo',
+              'Warning',
+              'Missing fields',
               'info'
             )
           } else {
@@ -90,21 +90,21 @@
               var emailExist = _.indexOf(emails, this.user)
               if (emailExist === -1) {
                 swal(
-                  'Atención',
-                  'Credenciales inválidas, ingresa nuevamente tus credenciales',
+                  'Warning',
+                  'Wrong credentials',
                   'error'
                 )
               } else {
                 if (passwords[emailExist] !== hash) {
                   swal(
-                    'Atención',
-                    'Credenciales inválidas, ingresa nuevamente tus credenciales',
+                    'Warning',
+                    'Wrong credentials',
                     'error'
                   )
                 } else {
                   swal(
-                    'Bienvenido',
-                    'Es un gusto tenerlo de nuevo por acá',
+                    'Welcome',
+                    'Nice to say hi today :)',
                     'success'
                   )
                 }

@@ -7,13 +7,15 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VeeValidate from 'vee-validate'
 import firebase from 'firebase'
+import Axios from 'axios'
 
 Vue.use(Vuetify)
 Vue.use(VeeValidate)
 Vue.use(firebase)
+// Vue.use(Axios)
 
 Vue.config.productionTip = false
-
+Vue.prototype.$http = Axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,6 +1,6 @@
 <template>
   <v-app id="auth">
-    <auth-navbar @changeModalProp="changeCreateEmployeeProp"></auth-navbar>
+    <auth-navbar @changeModalProp="changeCreateEmployeeProp" @emailServerIP="setEmailServerIp"></auth-navbar>
     <v-content>
       <auth-form @changeModalProp="changeResetPasswordProp"></auth-form>
     </v-content>
@@ -9,10 +9,11 @@
       <register-form :show="showCreateForm" @changeModalProp="changeCreateEmployeeProp"></register-form>
     </v-layout>
     <v-layout row>
-      <reset-password-form :show="showResetForm" @changeModalProp="changeResetPasswordProp"></reset-password-form>
+      <reset-password-form :show="showResetForm" @changeModalProp="changeResetPasswordProp" :serverIP="serverIP"></reset-password-form>
     </v-layout>
     <v-layout row>
-      <reset-password-page :show="showResetPasswordPage" @changeModalProp="changeResetPasswordPage"></reset-password-page>
+      <reset-password-page :show="showResetPasswordPage"
+                           @changeModalProp="changeResetPasswordPage"></reset-password-page>
     </v-layout>
   </v-app>
 </template>
@@ -37,7 +38,8 @@
       drawer: null,
       showCreateForm: false,
       showResetForm: false,
-      showResetPasswordPage: false
+      showResetPasswordPage: false,
+      serverIP: null
     }),
     methods: {
       changeCreateEmployeeProp () {
@@ -48,6 +50,10 @@
       },
       changeResetPasswordPage () {
         this.showResetPasswordPage = !this.showResetPasswordPage
+      },
+      setEmailServerIp (ipAddress) {
+        console.log('ip changed', ipAddress)
+        this.serverIP = ipAddress
       }
     },
     props: {
