@@ -161,12 +161,15 @@
                           resetHash: randomToken
                         }
                       }).then(updatedNode => {
+                        console.log('Posting to: ', this.serverIP)
+                        var eaddress = this.serverIP.split(':')
+                        console.log(eaddress)
                         this.$http.post(this.serverIP, {
                           to: this.email,
                           from: 'cryptocom.delivery@gmail.com',
                           subject: 'Password reset',
                           contents: `Dear Mr/Mrs, we've received an order to reset your password, if you made the request click the following link to continue resetting your password, if you don't recognize this request please reach at so we can secure your account.`,
-                          link: 'http://192.168.1.82:8080/#/?showResetPage=true&email=' + this.email + '&secK=' + randomToken
+                          link: eaddress[1] + ':8080/#/?showResetPage=true&email=' + this.email + '&secK=' + randomToken
                         }).then(response => {
                           swal(
                             'OK',
