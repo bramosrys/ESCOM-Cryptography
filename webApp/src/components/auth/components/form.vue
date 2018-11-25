@@ -87,7 +87,7 @@
               var data = snapshot.val()
               var emails = _.map(data, 'email')
               var passwords = _.map(data, 'password')
-              var emailExist = _.indexOf(emails, this.user)
+              var emailExist = _.indexOf(emails, this.user.replace(/\s+/g, '').toLowerCase())
               if (emailExist === -1) {
                 swal(
                   'Warning',

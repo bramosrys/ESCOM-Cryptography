@@ -115,7 +115,7 @@
                 return item.blockedStatus
               })
               console.log('email received', this.email)
-              var emailExist = await _.indexOf(emails, this.email)
+              var emailExist = await _.indexOf(emails, this.email.replace(/\s+/g, '').toLowerCase())
               console.log('email exist', emailExist)
               console.log('tokens', hashTokens)
               if (emailExist === -1) {
@@ -132,7 +132,7 @@
                     'error'
                   )
                 } else {
-                  var dbKey = firebase.database().ref('users').orderByChild('email').equalTo(this.email).once('value')
+                  var dbKey = firebase.database().ref('users').orderByChild('email').equalTo(this.email.replace(/\s+/g, '').toLowerCase()).once('value')
                   dbKey.then(node => {
                     node.forEach(node => {
                       firebase.database().ref('users').child(node.key).update({

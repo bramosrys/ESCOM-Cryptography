@@ -116,7 +116,7 @@
             var userList = firebase.database().ref('users').orderByChild('email')
             userList.once('value').then((snapshot) => {
               var data = snapshot.val()
-              var emailExist = _.indexOf(_.map(data, 'email'), this.email)
+              var emailExist = _.indexOf(_.map(data, 'email'), this.email.replace(/\s+/g, '').toLowerCase())
               if (emailExist >= 0) {
                 swal(
                   'Atencion',
@@ -130,7 +130,7 @@
                 var dbKey = firebase.database().ref().child('users').push().key
                 var newUser = {}
                 newUser['users/' + dbKey] = {
-                  email: this.email,
+                  email: this.email.replace(/\s+/g, '').toLowerCase(),
                   password: hash,
                   blockedStatus: {
                     resetHash: '' // randomstring.generate({length: 32, charset: 'alphabetic'})
