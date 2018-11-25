@@ -28,17 +28,26 @@ module.exports.http = {
     * (This Sails app's routes are handled by the "router" middleware below.)  *
     *                                                                          *
     ***************************************************************************/
+    requestLogger: (req, res, next) => {
+      console.log("Requested :: ", req.method, req.url);
+      next();
+    },
 
-    // order: [
-    //   'cookieParser',
-    //   'session',
-    //   'bodyParser',
-    //   'compress',
-    //   'poweredBy',
-    //   'router',
-    //   'www',
-    //   'favicon',
-    // ],
+    keepAlive: (req, res, next) => {
+      res.set('Connection', 'keep-alive');
+      next();
+    },
+
+    order: [
+      'compress',
+      'keepAlive',
+      'requestLogger',
+      'bodyParser',
+      'compress',
+      'router',
+      '$custom',
+      'router'
+    ],
 
 
     /***************************************************************************
@@ -49,11 +58,11 @@ module.exports.http = {
     *                                                                          *
     ***************************************************************************/
 
-    // bodyParser: (function _configureBodyParser(){
-    //   var skipper = require('skipper');
-    //   var middlewareFn = skipper({ strict: true });
-    //   return middlewareFn;
-    // })(),
+    bodyParser: (function _configureBodyParser(){
+      var skipper = require('skipper');
+      var middlewareFn = skipper({ strict: true, limit:'10mb' });
+      return middlewareFn;
+    })(),
 
   },
 

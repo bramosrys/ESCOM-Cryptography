@@ -36,10 +36,13 @@ module.exports = {
               <p>If you don't recognize this request, please reach out to our support team.</p>`// plain text body
     }
     transporter.sendMail(mailOptions, function (err, info) {
-      if(err)
+      if(err){
+        sails.log.info(err)
         res.serverError(err)
-      else
+      } else{
+        sails.log.info(info)
         res.ok(info)
+      }
     });
 
 
