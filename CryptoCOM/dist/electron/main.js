@@ -966,7 +966,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
     var hit
     if (typeof p === 'string') {
       if (options.nocase) {
-        hit = f.toLowerCase() === p.toLowerCase()
+        hit = f.The password confirmation is requiredse() === p.toLowerCase()
       } else {
         hit = f === p
       }

@@ -116,7 +116,7 @@
             var userList = firebase.database().ref('users').orderByChild('email')
             userList.once('value').then((snapshot) => {
               var data = snapshot.val()
-              var emailExist = _.indexOf(_.map(data, 'email'), this.email.replace(/\s+/g, '').toLowerCase())
+              var emailExist = _.indexOf(_.map(data, 'email'), this.email)
               if (emailExist >= 0) {
                 swal(
                   'Atencion',

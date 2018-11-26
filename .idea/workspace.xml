@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f38bf1d8-0084-45e8-956b-1fcd0e979ddb" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CryptoCOM/dist/electron/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/CryptoCOM/dist/electron/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,11 +21,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="171" column="32" selection-start-line="171" selection-start-column="32" selection-end-line="171" selection-end-column="32" />
+            <state relative-caret-position="2415">
+              <caret line="105" column="59" selection-start-line="105" selection-start-column="59" selection-end-line="105" selection-end-column="59" />
               <folding>
                 <element signature="e#1193#1223#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="132" column="69" selection-start-line="132" selection-start-column="69" selection-end-line="132" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -62,6 +73,9 @@
       <find>Yo</find>
       <find>Debes ingresar la contraseña</find>
       <find>La confirmación de la contraseña es requerida</find>
+      <find>re</find>
+      <find>email.re</find>
+      <find>toLowerCa</find>
     </findStrings>
     <replaceStrings>
       <replace>additiveInverse</replace>
@@ -172,17 +186,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="ESCOM-Cryptography" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,6 +239,17 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="auth" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="ESCOM-Cryptography" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -325,11 +339,12 @@
       <workItem from="1542379648112" duration="10319000" />
       <workItem from="1542811468022" duration="209000" />
       <workItem from="1542811698190" duration="5454000" />
+      <workItem from="1543241586831" duration="102000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115784000" />
+    <option name="totallyTimeSpent" value="116062000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -356,7 +371,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.50438595" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.5049396" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -614,16 +629,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3007">
-          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
-          <folding>
-            <element signature="e#2447#2477#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/form.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -638,10 +643,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/RegisterForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="132" column="69" selection-start-line="132" selection-start-column="69" selection-end-line="132" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/webApp/src/components/auth/components/ResetPassword.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="171" column="32" selection-start-line="171" selection-start-column="32" selection-end-line="171" selection-end-column="32" />
+        <state relative-caret-position="2415">
+          <caret line="105" column="59" selection-start-line="105" selection-start-column="59" selection-end-line="105" selection-end-column="59" />
           <folding>
             <element signature="e#1193#1223#0" expanded="true" />
           </folding>
