@@ -18,7 +18,7 @@ module.exports = {
       {'contents': 'string'},
       {'link': 'string'},
     ])
-
+    sails.log.info(params)
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {

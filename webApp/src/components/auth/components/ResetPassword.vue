@@ -162,7 +162,7 @@
                         }
                       }).then(updatedNode => {
                         console.log('Posting to: ', this.serverIP)
-                        var eaddress = this.serverIP
+                        var eaddress = this.serverIP.split(':')
                         console.log(eaddress)
                         this.$http.post(this.serverIP, {
                           to: this.email,
