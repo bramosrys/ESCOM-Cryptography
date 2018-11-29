@@ -16,7 +16,7 @@
                 <p>Started: {{actualJob.start}}</p>
                 <div class="subheading mb-1 font-weight-bold">{{previousJob.title}}</div>
                 <div class="subheading mb-2">{{previousJob.description}}</div>
-                <p>Started: {{previousJob.start}} - Ended: {{previousJob.end}}</p>
+                <p>{{previousJob.start}} - {{previousJob.end}}</p>
               </v-layout>
             </v-card-text>
           </v-flex>
